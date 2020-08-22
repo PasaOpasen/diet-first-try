@@ -1,0 +1,679 @@
+﻿{
+  "data": {
+    "msg": "Данные успешно сохранены",
+    "user": {
+      "attributes": {
+        "id": 22,
+        "date_register": "2020-08-11T20:22:22.000000Z",
+        "select_patient": 24,
+        "user_profile": {
+          "id": 9,
+          "user_id": 22,
+          "firstname": null,
+          "middlename": null,
+          "lastname": null,
+          "birthday": null,
+          "gender": "Мужской",
+          "count_ration": null,
+          "phone": null,
+          "country": null,
+          "city": null,
+          "path_img": null,
+          "path_logo": null,
+          "profession": null,
+          "title": null,
+          "work": null,
+          "post": null,
+          "created_at": "2020-08-11T20:22:22.000000Z",
+          "updated_at": "2020-08-11T20:22:22.000000Z",
+          "email": "vadim@kremlin.ru"
+        }
+      },
+      "meta": {
+        "patient": {
+          "id": 24,
+          "attributes": {
+            "firstname": "Тестовы",
+            "middlename": "Пациент",
+            "lastname": "Новый",
+            "birthday": "1970-01-01",
+            "age": 50,
+            "gender": 0,
+            "pergant": 0,
+            "diet_type": 2,
+            "diet_restrictions": 1,
+            "working_group": 3,
+            "weight": 58,
+            "height": 178,
+            "email": "coolonce@yandex.ru",
+            "phone": "9111111111",
+            "secret_word": "",
+            "link_hash": "#hash=2903188091",
+            "data": {
+              "hip": 90,
+              "bads": [],
+              "cofe": null,
+              "waist": 60,
+              "wrist": 15,
+              "toilet": null,
+              "address": {
+                "region": "dasdas",
+                "street": "123123",
+                "country": "213123",
+                "district": "dasd",
+                "locality": "213123"
+              },
+              "alcohol": null,
+              "smoking": null,
+              "shoulder": 24,
+              "allergies": {
+                "products": [],
+                "medicines": []
+              },
+              "foodDiary": [],
+              "maxWeight": null,
+              "minWeight": null,
+              "timeSleep": null,
+              "placeLunch": null,
+              "placeDinner": null,
+              "womenStatus": null,
+              "workGraphic": null,
+              "unlovedFoods": [],
+              "amountEatings": null,
+              "desiredWeight": null,
+              "favoriteFoods": [],
+              "psychicStatus": null,
+              "timeGoToSleep": null,
+              "chairCharacter": null,
+              "chairFrequency": null,
+              "placeBreakfast": null,
+              "сaliperometry": {
+                "chestCrease": 12,
+                "iliumCrease": 43,
+                "thighCrease": 23,
+                "bicepsCrease": 43,
+                "stomachCrease": 32,
+                "tricepsCrease": 1,
+                "shoulderBladeCrease": 21
+              },
+              "chronicDiseases": [],
+              "phisicalActivity": null,
+              "allergiesProducts": [],
+              "amountWaterPerDay": null,
+              "bioimpedansometry": {
+                "fatMassKg": null,
+                "totalFluid": null,
+                "visceralFat": null,
+                "muscleMassKg": null,
+                "activeCellMass": null,
+                "fatMassPercent": null,
+                "skinnyBodyMass": null,
+                "muscleMassPercent": null,
+                "intracellularFluid": null
+              },
+              "productDiscomfort": [],
+              "allergiesMedicines": [],
+              "chronicDiseasesFamily": [],
+              "complaintsOfWellBeing": null,
+              "hardDiseasesAndOperations": []
+            },
+            "registrationDate": "2020-08-11T20:45:45.000000Z",
+            "appointmentDate": "2020-08-11T20:56:12.000000Z"
+          },
+          "meta": {
+            "imt": {
+              "value": 18,
+              "info": "Дефицит массы"
+            },
+            "jmt": {
+              "value": 21,
+              "info": ""
+            },
+            "percent_fat": {
+              "value": 8.41,
+              "info": "Профессиональный спортсмен"
+            },
+            "index_waist_hip": {
+              "value": 0.667,
+              "info": "Тип распределения жировой ткани: Гиноидный"
+            },
+            "index_waist_height": {
+              "value": 0.337,
+              "info": "Патологическая худоба, дефицит веса"
+            },
+            "index_pignet": {
+              "value": 108,
+              "info": "Тип телосложения: Очень слабое"
+            },
+            "index_body_obesity": {
+              "value": 20,
+              "info": "Отсутствует объем бедра"
+            },
+            "index_soloviev": {
+              "value": 15,
+              "info": "Нормостенический"
+            },
+            "recomendedCalories": [
+              {
+                "id": "average",
+                "value": 2352,
+                "info": "Среднее значение по всем формулам"
+              },
+              {
+                "id": "voz",
+                "value": 2171,
+                "info": "По ВОЗ"
+              },
+              {
+                "id": "recomendation_calories_maffin",
+                "value": 2627,
+                "info": "По Маффина-Джеора"
+              },
+              {
+                "id": "recomendation_calories_venutto",
+                "value": 2257,
+                "info": "По Тому Венуто"
+              }
+            ],
+            "recommendedWeight": [
+              {
+                "id": "average",
+                "value": 68,
+                "info": "Среднее значение по всем формулам"
+              },
+              {
+                "id": "recomendation_weight_brok",
+                "value": 66,
+                "info": "По Броку"
+              },
+              {
+                "id": "recomendation_weight_hamvi",
+                "value": 68,
+                "info": "По Хамви"
+              },
+              {
+                "id": "recomendation_weight_khreffa",
+                "value": 75,
+                "info": "По Креффу"
+              },
+              {
+                "id": "recomendation_weight_voz",
+                "value": 67,
+                "info": "По ВОЗ"
+              },
+              {
+                "id": "recomendation_weight_lorenco",
+                "value": 64,
+                "info": "По Лоренцу"
+              }
+            ],
+            "norms": [
+              {
+                "id": 1,
+                "name": "Основные нутриенты",
+                "nutrients": [
+                  {
+                    "name": "Калории",
+                    "mass": 2750.25,
+                    "code": "calories",
+                    "units": "кКал"
+                  },
+                  {
+                    "name": "Белки",
+                    "mass": 123.76125,
+                    "code": "proteins",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Жиры",
+                    "mass": 97.78666,
+                    "code": "fats",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Углеводы",
+                    "mass": 343.78125,
+                    "code": "carbohydrates",
+                    "units": "г"
+                  }
+                ]
+              },
+              {
+                "id": 2,
+                "name": "Белки",
+                "nutrients": [
+                  {
+                    "name": "Белки",
+                    "mass": 123.76125,
+                    "code": "proteins",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Валин",
+                    "mass": 1.508,
+                    "code": "valine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Изолейцин",
+                    "mass": 0,
+                    "code": "isoleucine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Аргинин",
+                    "mass": 6,
+                    "code": "arginine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Гистидин",
+                    "mass": 0.58,
+                    "code": "histidine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Лейцин",
+                    "mass": 2.262,
+                    "code": "leucine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Лизин",
+                    "mass": 1.74,
+                    "code": "lysine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Метионин",
+                    "mass": 0.58,
+                    "code": "methionine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Треонин",
+                    "mass": 0.87,
+                    "code": "threonine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Метионин",
+                    "mass": 1.276,
+                    "code": "phenylalanine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Аланин",
+                    "mass": 3,
+                    "code": "alanine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Аспарагиновая кислота",
+                    "mass": 6,
+                    "code": "aspartic_acid",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Глицин",
+                    "mass": 3.5,
+                    "code": "glycine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Глутаминовая кислота",
+                    "mass": 14,
+                    "code": "glutamic_acid",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Пролин",
+                    "mass": 5,
+                    "code": "proline",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Серин",
+                    "mass": 3,
+                    "code": "serine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Тирозин",
+                    "mass": 3,
+                    "code": "tyrosine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Цистеин",
+                    "mass": 0,
+                    "code": "cystine",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Метионин",
+                    "mass": 0.58,
+                    "code": "methionine",
+                    "units": "г"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "name": "Жиры",
+                "nutrients": [
+                  {
+                    "name": "Жиры",
+                    "mass": 97.78666,
+                    "code": "fats",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Насыщеные жирные кислоты",
+                    "mass": 18.9,
+                    "code": "sfa",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Омега-3",
+                    "mass": 0,
+                    "code": "omega3",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Омега-6",
+                    "mass": 0,
+                    "code": "omega_6",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Омега-9",
+                    "mass": 0,
+                    "code": "omega_9",
+                    "units": "г"
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "name": "Минералы",
+                "nutrients": [
+                  {
+                    "name": "Калий",
+                    "mass": 2500,
+                    "code": "potassium",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Кальций",
+                    "mass": 1000,
+                    "code": "calcium",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Магний",
+                    "mass": 420,
+                    "code": "magnesium",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Натрий",
+                    "mass": 1500,
+                    "code": "sodium",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Сера",
+                    "mass": 500,
+                    "code": "sulfur",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Фосфор",
+                    "mass": 800,
+                    "code": "phosphorus",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Железо",
+                    "mass": 8,
+                    "code": "iron",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Марганец",
+                    "mass": 2000,
+                    "code": "manganese",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Медь",
+                    "mass": 1000,
+                    "code": "copper",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Селен",
+                    "mass": 0,
+                    "code": "selenium",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Цинк",
+                    "mass": 10,
+                    "code": "zinc",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Бром",
+                    "mass": 0,
+                    "code": "bromine",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Бор",
+                    "mass": 1000,
+                    "code": "bor",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Кобальт",
+                    "mass": 10000,
+                    "code": "cobalt",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Молибден",
+                    "mass": 45,
+                    "code": "molybdenum",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Фтор",
+                    "mass": 4000,
+                    "code": "fluorine",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Хром",
+                    "mass": 0,
+                    "code": "chromium",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Никель",
+                    "mass": 150,
+                    "code": "nickel",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Йод",
+                    "mass": 150,
+                    "code": "iodine",
+                    "units": "мкг"
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "name": "Витамины",
+                "nutrients": [
+                  {
+                    "name": "Витамин A",
+                    "mass": 900,
+                    "code": "vitamin_a",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Витамин В1",
+                    "mass": 1.2,
+                    "code": "vitamin_b1",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин В2",
+                    "mass": 1.3,
+                    "code": "vitamin_b2",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин В3",
+                    "mass": 16,
+                    "code": "vitamin_b3",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин В4",
+                    "mass": 550,
+                    "code": "vitamin_b4",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин В5",
+                    "mass": 5,
+                    "code": "vitamin_b5",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин В6",
+                    "mass": 1.3,
+                    "code": "vitamin_b6",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин В9",
+                    "mass": 400,
+                    "code": "vitamin_b9",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Витамин В12",
+                    "mass": 2.4,
+                    "code": "vitamin_b12",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Витамин С",
+                    "mass": 90,
+                    "code": "vitamin_c",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин K",
+                    "mass": 90,
+                    "code": "vitamin_k",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Витамин E",
+                    "mass": 15,
+                    "code": "vitamin_e",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Витамин D",
+                    "mass": 15,
+                    "code": "vitamin_d",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Альфа каротин",
+                    "mass": 5000,
+                    "code": "alpha_carotene",
+                    "units": "мг"
+                  },
+                  {
+                    "name": "Бета каротин",
+                    "mass": 5.4,
+                    "code": "beta_carotene",
+                    "units": "мг"
+                  }
+                ]
+              },
+              {
+                "id": 6,
+                "name": "Углеводы",
+                "nutrients": [
+                  {
+                    "name": "Углеводы",
+                    "mass": 0,
+                    "code": "carbohydrate",
+                    "units": "г"
+                  },
+                  {
+                    "name": "Моно- и дисахариды",
+                    "mass": 0,
+                    "code": "sugars",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Глюкоза",
+                    "mass": 0,
+                    "code": "glucose",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Фруктоза",
+                    "mass": 0,
+                    "code": "fructose",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Галактоза",
+                    "mass": 0,
+                    "code": "galactose",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Лактоза",
+                    "mass": 0,
+                    "code": "lactose",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Сахароза",
+                    "mass": 0,
+                    "code": "saccharose",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Крахмал",
+                    "mass": 390,
+                    "code": "starch",
+                    "units": "мкг"
+                  },
+                  {
+                    "name": "Клетчатка",
+                    "mass": 0,
+                    "code": "fiber",
+                    "units": "мкг"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
