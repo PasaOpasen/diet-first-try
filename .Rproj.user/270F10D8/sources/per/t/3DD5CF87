@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1598107678326.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1991459162",
+    "id" : "3DD5CF87",
+    "lastKnownWriteTime" : 1598110136,
+    "last_content_update" : 1598110136031,
+    "path" : "C:/Users/qtckp/OneDrive/Рабочий стол/diet_first_try/borders.R",
+    "project_path" : "borders.R",
+    "properties" : {
+        "cursorPosition" : "48,0",
+        "scrollLine" : "25",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
