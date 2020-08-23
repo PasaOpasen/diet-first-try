@@ -6,8 +6,10 @@ library(magrittr)
 # просто считываю данные и удаляю лишние столбцы
 
 foods = read_csv('foods.csv')
+foods_names = foods$name
 
 recipes = read_csv('recipes.csv')
+recipes_names = as.character(recipes$id) 
 
 foods %<>% select_if(is.numeric) %>% 
   select(-category_id, -general, -id_1, -food_id, -id_2, -food_id_1, -id_3, food_id_2, -food_id_2)
@@ -67,5 +69,31 @@ foods = foods[,goal_columns]
 
 recipes = recipes[,goal_columns]
 
+
+write_csv(foods %>% mutate(name = foods_names), 'currect_foods.csv')
+write_csv(recipes %>% mutate(name = recipes_names), 'currect_recipes.csv')
+
+
+# connect goal with borders
+
+# надо присоединить к цели коридоры
+# если признак есть в коридоре, но не в цели, его отбрасываем
+# если есть в цели, но не в коридоре, добавляем в коридор с границами 1-10
+
+borders = read_csv('borders.csv')
+
+tmp = intersect(goal_columns, colnames(borders))
+borders = borders[,tmp]
+
+tmp = setdiff(goal_columns, tmp)
+borders[,tmp] = c(1, 10, 1, 10)
+
+# сделать порядок в коридорах таким же, как у цели
+borders = borders[, goal_columns]
+
+
+for(i in 1:4){
+  borders[i,] = borders[i,] * as.numeric(goal)
+}
 
 

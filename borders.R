@@ -7,7 +7,7 @@ mat = matrix(1, nrow = 4, ncol = length(right_columns))
 rownames(mat) = c('day_bottom','day_top','week_bottom', 'week_top')
 colnames(mat) = right_columns
 
-mat = as.tibble(mat)
+mat = as_tibble(mat)
 
 # a
 mat$energy = c(0.93, 1.07, 0.97, 1.03)
@@ -52,8 +52,8 @@ bad_cols = sapply(mat, function(cl) sum(cl == 1)==4)
 write_csv(mat[,!bad_cols], 'borders.csv')  
   
   
-  
-
+#mat[,bad_cols] = c(1,100,1,100)
+#write_csv(mat, 'borders.csv') 
 
 
 
