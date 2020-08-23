@@ -96,4 +96,4 @@ for(i in 1:4){
   borders[i,] = borders[i,] * as.numeric(goal)
 }
 
-
+write_csv(borders, 'currect_borders.csv')
