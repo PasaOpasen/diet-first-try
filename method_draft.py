@@ -27,7 +27,7 @@ def is_valid_diff(difference):
 
 
 
-def get_day(foods, recipes, borders, recipes_samples = 10):
+def get_day(foods, recipes, borders, recipes_samples = 10, max_count = 3):
     
     # recipes part
     
@@ -39,7 +39,7 @@ def get_day(foods, recipes, borders, recipes_samples = 10):
     
     bord = borders[0:2,:].copy()
 
-    for _ in range(2):
+    for _ in range(max_count):
         
         no_progress = 0
         
@@ -100,9 +100,108 @@ def get_day(foods, recipes, borders, recipes_samples = 10):
     #print(r + f)
     #print(borders[0,:])
     
-    return r+f
     
-    return np.sum(r + f < borders[0,:]) == 0
+    
+    #return r+f
+    
+    return np.sum(r + f < borders[0,:])
+    
+    assert(np.sum(r + f < borders[0,:]) == 0)
+    
+    # это условие всегда выполнено из смысла самого алгоритма
+    assert(np.sum(r + f > borders[1,:]) == 0)
+
+def get_day2(foods, recipes, borders, recipes_samples = 10, max_count = 3, tryes = 10):
+    
+    # recipes part
+    
+    recipes_inds = np.random.choice(recipes.shape[0], recipes_samples)
+    
+    recipes_used = recipes[recipes_inds,:]
+        
+    counts = np.zeros(recipes_samples)
+    
+    bord = borders[0:2,:].copy()
+
+    for _ in range(max_count):
+        
+        no_progress = 0
+        
+        for i in range(recipes_samples):
+            
+            new_bord = currect_diff(bord, recipes_used[i,:])
+
+            if is_valid_diff(new_bord):
+                bord = new_bord
+                counts[i] += 1
+            else:
+                no_progress += 1
+        
+        if no_progress == recipes_samples:
+            break
+    
+    # foods part
+    
+    food_size = foods.shape[0]
+    
+    food_inds = np.arange(food_size)
+    
+    minval = float('inf')
+    best_count2 = None
+    stab = bord.copy()
+
+    for _ in range(tryes):
+        np.random.shuffle(food_inds)
+        
+        counts2 = np.zeros(food_size)
+        bord = stab.copy()
+        
+        for i in range(food_size):
+            
+            while True:
+                new_bord = currect_diff(bord, foods[food_inds[i],:])
+                
+                if is_valid_diff(new_bord):
+                    bord = new_bord
+                    counts2[i] += 1
+                else:
+                    break
+                
+        val = np.sum(bord[0,:])
+        if val < minval:
+            best_count2 = counts2.copy()
+            minval = val
+        
+    
+    counts2 = best_count2
+    
+    
+    # currect weights
+            
+    recipes_weights = np.zeros(recipes.shape[0])
+    recipes_weights[recipes_inds] = counts
+    #print(recipes_weights)
+    
+    food_weights = np.zeros(food_size)
+    food_weights[food_inds] = counts2
+    #print(food_weights)
+    
+    # results
+    
+    r = np.sum(recipes * recipes_weights.reshape(recipes.shape[0], 1), axis = 0)
+    f = np.sum(foods * food_weights.reshape(food_size, 1), axis = 0)
+    
+    
+    #print((r + f) / borders[0,:])
+    #print(r + f < borders[0,:])
+    #print(r + f)
+    #print(borders[0,:])
+    
+    
+    
+    #return r+f
+    
+    return np.sum(r + f < borders[0,:])
     
     assert(np.sum(r + f < borders[0,:]) == 0)
     
@@ -112,9 +211,7 @@ def get_day(foods, recipes, borders, recipes_samples = 10):
 
 
 
-
-
-np.random.seed(1)
+np.random.seed(5)
 
 
 
@@ -135,17 +232,17 @@ recipes = recipes.iloc[:,:-1].to_numpy()
 
 borders = pd.read_csv('currect_borders.csv').to_numpy()
 
-# for p in range(500):
-#     bl = get_day(foods, recipes, borders[0:2,:], 3)
-#     if bl:
-#         print(p)
-
 for p in range(500):
-    a = get_day(foods, recipes, borders[0:2,:], 5)
-    b = get_day(foods, recipes, borders[0:2,:], 5)
-    c = get_day(foods, recipes, borders[0:2,:], 5)
-    if np.sum((a+b+c)/1.5 < borders[0,:]) <= 6:
-        print(f'{p}   {np.sum((a+b+c)/1.5 > borders[1,:])}')
+    bl = get_day2(foods, recipes, borders[0:2,:], 4, 3, 10)
+    if bl < 5:
+        print(f'{p}   {bl}')
+
+# for p in range(500):
+#     a = get_day2(foods, recipes, borders[0:2,:], 4, 3, 10)
+#     b = get_day2(foods, recipes, borders[0:2,:], 4, 3, 10)
+#     #c = get_day2(foods, recipes, borders[0:2,:], 4, 3, 10)
+#     if np.sum((a+b)/2 < borders[0,:]) <= 2:
+#         print(f'{p}   {np.sum((a+b)/2 > borders[1,:])}')
 
 
 
