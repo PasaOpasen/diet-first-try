@@ -122,3 +122,4 @@ for(i in 1:ncol(borders)){
 }
 
 write_csv(borders, 'currect_borders.csv')
+

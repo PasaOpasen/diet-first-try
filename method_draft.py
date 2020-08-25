@@ -7,6 +7,8 @@ Created on Sun Aug 23 15:17:26 2020
 
 import numpy as np
 
+np.set_printoptions(precision=3, suppress = True)
+
 
 def currect_diff(borders, sample):
     
@@ -37,7 +39,7 @@ def get_day(foods, recipes, borders, recipes_samples = 10):
     
     bord = borders[0:2,:].copy()
 
-    while True:
+    for _ in range(2):
         
         no_progress = 0
         
@@ -81,18 +83,26 @@ def get_day(foods, recipes, borders, recipes_samples = 10):
             
     recipes_weights = np.zeros(recipes.shape[0])
     recipes_weights[recipes_inds] = counts
-    print(recipes_weights)
+    #print(recipes_weights)
     
     food_weights = np.zeros(food_size)
     food_weights[food_inds] = counts2
-    print(food_weights)
+    #print(food_weights)
     
     # results
     
     r = np.sum(recipes * recipes_weights.reshape(recipes.shape[0], 1), axis = 0)
     f = np.sum(foods * food_weights.reshape(food_size, 1), axis = 0)
     
-    print(r + f < borders[0,:])
+    
+    #print((r + f) / borders[0,:])
+    #print(r + f < borders[0,:])
+    #print(r + f)
+    #print(borders[0,:])
+    
+    return r+f
+    
+    return np.sum(r + f < borders[0,:]) == 0
     
     assert(np.sum(r + f < borders[0,:]) == 0)
     
@@ -104,63 +114,74 @@ def get_day(foods, recipes, borders, recipes_samples = 10):
 
 
 
-
-
-
-
-# import pandas as pd
-
-# foods = pd.read_csv('currect_foods.csv')
-
-# food_names = foods.name
-# foods = foods.iloc[:,:-1].to_numpy()
-
-
-# recipes = pd.read_csv('currect_recipes.csv')
-
-# recipes_names = recipes.name
-# recipes = recipes.iloc[:,:-1].to_numpy()
-
-
-# borders = pd.read_csv('currect_borders.csv').to_numpy()
-
-
-#get_day(foods, recipes, borders[0:2,:], 10)
-
-
-
-
 np.random.seed(1)
-pred_count = 80
-
-food_wrap = np.random.uniform(low = 0.5, high = 3, size = (100, pred_count))
-recipes_wrap = np.random.uniform(low = 2, high = 4, size = (150, pred_count))
-
-
-a = np.random.normal(loc = 50, scale = 5, size = pred_count)
-b = np.random.normal(loc = 60, scale = 3, size = pred_count)
-
-borders_wrap  = np.vstack((
-        a,
-        a + np.random.uniform(low = 5, high = 10, size = pred_count),
-        b,
-        b + np.random.uniform(low = 1.5, high = 3, size = pred_count)
-    ))
-
-np.sum(borders_wrap [3,:] > borders_wrap [2,:])
-np.sum(borders_wrap [1,:] > borders_wrap [0,:])
 
 
 
-get_day(food_wrap , recipes_wrap , borders_wrap[0:2,:], 7)
+import pandas as pd
+
+foods = pd.read_csv('currect_foods.csv')
+
+#food_names = foods.name
+#foods = foods.iloc[:,:-1].to_numpy()
+
+foods = foods.to_numpy()
+
+recipes = pd.read_csv('currect_recipes.csv')
+
+recipes_names = recipes.name
+recipes = recipes.iloc[:,:-1].to_numpy()
+
+
+borders = pd.read_csv('currect_borders.csv').to_numpy()
+
+# for p in range(500):
+#     bl = get_day(foods, recipes, borders[0:2,:], 3)
+#     if bl:
+#         print(p)
+
+for p in range(500):
+    a = get_day(foods, recipes, borders[0:2,:], 5)
+    b = get_day(foods, recipes, borders[0:2,:], 5)
+    c = get_day(foods, recipes, borders[0:2,:], 5)
+    if np.sum((a+b+c)/1.5 < borders[0,:]) <= 6:
+        print(f'{p}   {np.sum((a+b+c)/1.5 > borders[1,:])}')
+
+
+
+# pred_count = 80
+
+# food_wrap = np.random.uniform(low = 0.5, high = 3, size = (100, pred_count))
+# recipes_wrap = np.random.uniform(low = 2, high = 4, size = (150, pred_count))
+
+
+# a = np.random.normal(loc = 50, scale = 5, size = pred_count)
+# b = np.random.normal(loc = 60, scale = 3, size = pred_count)
+
+# borders_wrap  = np.vstack((
+#         a,
+#         a + np.random.uniform(low = 5, high = 10, size = pred_count),
+#         b,
+#         b + np.random.uniform(low = 1.5, high = 3, size = pred_count)
+#     ))
+
+# np.sum(borders_wrap [3,:] > borders_wrap [2,:])
+# np.sum(borders_wrap [1,:] > borders_wrap [0,:])
+
+
+
+# get_day(food_wrap , recipes_wrap , borders_wrap[0:2,:], 7)
 
 
 
 
+# import sympy
+# mat = np.array([[0,1,0,0],[0,0,1,0],[0,1,1,0],[1,0,0,1]]) 
+# _, inds = sympy.Matrix(mat).T.rref() 
 
 
-
-
+# mat = recipes
+# _, inds = sympy.Matrix(mat).T.rref() 
 
 
 
