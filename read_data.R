@@ -12,9 +12,15 @@ recipes = read_csv('recipes.csv')
 recipes_names = as.character(recipes$id) 
 
 foods %<>% select_if(is.numeric) %>% 
-  select(-category_id, -general, -id_1, -food_id, -id_2, -food_id_1, -id_3, food_id_2, -food_id_2)
+  select(#-category_id, -general, -id_1, 
+         -food_id, -X1
+         #-id_2, -food_id_1, -id_3, food_id_2, -food_id_2
+         )
+foods[is.na(foods)] = 0
 
-recipes %<>% select_if(is.numeric) %>% select(-recipe_id) 
+
+recipes %<>% select_if(is.numeric) %>% select(-recipe_id, -id, - coef_for_men, -coef_for_women) 
+
 
 
 # отбираю только общие столбцы
@@ -31,12 +37,23 @@ setdiff(foods_cols, recipes_cols)
 
 
 
-right_columns = intersect(foods_cols, recipes_cols)
+#right_columns = intersect(foods_cols, recipes_cols)
 
+#foods = foods[,right_columns]
+
+#recipes = recipes[,right_columns]
+
+
+right_columns = union(foods_cols, recipes_cols)
+
+foods[,setdiff(recipes_cols, foods_cols)] = 0
+
+recipes[,setdiff(foods_cols, recipes_cols)] = 0
+
+# чтоб совпал порядок
 foods = foods[,right_columns]
 
 recipes = recipes[,right_columns]
-
 
 
 
@@ -47,12 +64,14 @@ goal = read_csv('goal.csv')
 goal_columns = colnames(goal)
 
 
-setdiff( goal_columns, right_columns)
+setdiff(goal_columns, right_columns)
 
 # надо убрать столбец, так как нет соответствия, и несколько переименовать (это нехорошо)
 # а еще есть нулевой столбец carbohydrate и нормальный carbohydrates, который должен быть carbohydrate
 
-goal %<>% select(-bromine, -carbohydrate) %>%  rename(
+goal %<>% select(#-bromine, 
+                 -carbohydrate
+                 ) %>%  rename(
   'fat' = 'fats',
   'energy' = 'calories',
   'protein' = 'proteins',
@@ -94,6 +113,12 @@ borders = borders[, goal_columns]
 
 for(i in 1:4){
   borders[i,] = borders[i,] * as.numeric(goal)
+}
+
+for(i in 1:ncol(borders)){
+  if(sum(borders[,i])==0){
+    borders[,i] = c(0,1000,0,1000)
+  }
 }
 
 write_csv(borders, 'currect_borders.csv')
