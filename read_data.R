@@ -104,8 +104,18 @@ borders = read_csv('borders.csv')
 tmp = intersect(goal_columns, colnames(borders))
 borders = borders[,tmp]
 
-tmp = setdiff(goal_columns, tmp)
-borders[,tmp] = c(1, 10, 1, 10)
+# как я понял, это не нужно, потому что исходим только от имеющихся диапазонов, норму прям соблюдать не обязательно
+#tmp = setdiff(goal_columns, tmp)
+#borders[,tmp] = c(1, 10, 1, 10)
+
+goal_columns = tmp
+goal = goal[,goal_columns]
+foods = foods[,goal_columns]
+recipes = recipes[,goal_columns]
+write_csv(foods %>% mutate(name = foods_names), 'currect_foods.csv')
+write_csv(recipes %>% mutate(name = recipes_names), 'currect_recipes.csv')
+
+
 
 # сделать порядок в коридорах таким же, как у цели
 borders = borders[, goal_columns]
@@ -115,11 +125,11 @@ for(i in 1:4){
   borders[i,] = borders[i,] * as.numeric(goal)
 }
 
-for(i in 1:ncol(borders)){
-  if(sum(borders[,i])==0){
-    borders[,i] = c(0,1000,0,1000)
-  }
-}
+#for(i in 1:ncol(borders)){
+#   if(sum(borders[,i])==0){
+#    borders[,i] = c(0,1000,0,1000)
+#  }
+#}
 
 write_csv(borders, 'currect_borders.csv')
 
