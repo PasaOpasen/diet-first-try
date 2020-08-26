@@ -124,6 +124,7 @@ borders = borders[, goal_columns]
 for(i in 1:4){
   borders[i,] = borders[i,] * as.numeric(goal)
 }
+borders[5,] = goal
 
 #for(i in 1:ncol(borders)){
 #   if(sum(borders[,i])==0){
