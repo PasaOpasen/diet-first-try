@@ -29,9 +29,18 @@ def get7sum(limit = 3):
     for t in tmp:
         if t not in answer:
             answer.append(t)
+        
+    #return answer
             
-    return answer
+    dic = {}
+    for i in range(1,8):
+        dic[i] = []
+    for a in answer:
+        dic[len(a)].append(a)
+    
+    return dic
+
+if __name__ == '__main__':
+    get7sum(5)
 
 
-
-get7sum(5)

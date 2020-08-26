@@ -6,6 +6,7 @@ Created on Sun Aug 23 15:17:26 2020
 """
 
 import numpy as np
+from weeksum import get7sum
 
 np.set_printoptions(precision=3, suppress = True)
 
@@ -46,8 +47,8 @@ def is_between(sample, borders):
     return True
 
 
-def AE(sample, target):
-    return np.sum(np.abs(sample-target))    
+def AE(sample, target, maxes):
+    return np.sum(np.abs(sample-target)/maxes)    
 
 
 def get_day(foods, recipes, borders, recipes_samples = 10, max_count = 3):
@@ -337,7 +338,7 @@ def get_day_fullrandom(foods, recipes, borders, recipes_samples = 10, max_count 
     
     # recipes part
     
-    recipes_inds = np.random.choice(recipes.shape[0], recipes_samples)
+    recipes_inds = np.random.choice(recipes.shape[0], recipes_samples, replace = False)
     
     recipes_used = recipes[recipes_inds,:]
         
@@ -361,6 +362,9 @@ def get_day_fullrandom(foods, recipes, borders, recipes_samples = 10, max_count 
         
         if no_progress == recipes_samples:
             break
+    
+    r = np.sum(recipes_used * counts.reshape(recipes_used.shape[0], 1), axis = 0)
+    #print(np.sum(r > borders[1,:]) == 0)
     
     # foods part
     
@@ -389,9 +393,10 @@ def get_day_fullrandom(foods, recipes, borders, recipes_samples = 10, max_count 
                 else:
                     break
                 
-        val = np.sum(bord[0,:])
+        val = np.sum(bord[0,:]/borders[0, :])
         if val < minval:
-            best_count2 = counts2.copy()
+            best_count2 = np.zeros(food_size)
+            best_count2[food_inds] = counts2.copy()
             minval = val
         
     
@@ -404,8 +409,9 @@ def get_day_fullrandom(foods, recipes, borders, recipes_samples = 10, max_count 
     recipes_weights[recipes_inds] = counts
     #print(recipes_weights)
     
-    food_weights = np.zeros(food_size)
-    food_weights[food_inds] = counts2
+    food_weights = best_count2
+    #food_weights = np.zeros(food_size)
+    #food_weights[food_inds] = counts2
     #print(food_weights)
     
     # results
@@ -414,6 +420,7 @@ def get_day_fullrandom(foods, recipes, borders, recipes_samples = 10, max_count 
     f = np.sum(foods * food_weights.reshape(food_size, 1), axis = 0)
     
     score = r + f
+    #assert(np.sum(score > borders[1,:]) == 0)
     
     return score, np.sum(score < borders[0,:]), recipes_weights, food_weights
     
@@ -507,21 +514,71 @@ for i in range(len(candidates)-1):
 
 
 
+limit = 7
+
+
+#samples = [(res, i) for i, (res, _, _, _) in enumerate(candidates)]
+samples = [res for res, _, _, _ in candidates]
+
+glob_borders = borders[2:4, :]
+
+avg = np.mean(glob_borders, axis = 0)
+score = lambda sample: AE(sample, avg, glob_borders[1,:])
+
+weeks = get7sum(limit)
+up_lim = max(weeks.keys())
+
+def coef_sum(inds):
+    t = len(inds)
+    res = []
+    good = False
+    for arr in weeks[t]:
+        sm = samples[inds[0]]*arr[0]
+        for i in range(1, len(arr)):
+            sm += samples[inds[i]]*arr[i]
+        sm /= 7
+        res.append((arr, sm))
+        if is_between(sm, glob_borders):
+            good = True
+    
+    return res, good
+
+
+comps = np.arange(len(samples))
+    
+results = [([], 0)]
+
+    
+for c in comps:
+    for _ in range(limit):
+        tmp = [([c], [([7], samples[c])])]
+        for r, _ in results:
+            if len(r) < up_lim:
+                appended = r + [c]
+                smpl, flag = coef_sum(appended)
+                if flag:
+                    print(smpl)
+                tmp.append((appended, smpl))
+        results += tmp
+        print(len(results))
 
 
 
+weeks[1] = [[7]]
+results = []
+for number in range(1,8):
+    for _ in range(10):
+        inds = list(np.random.choice(comps, min(number, len(comps)), replace = False))
+        smpl, flag = coef_sum(inds)
+        if flag:
+            print(smpl)
+        
+        results.append((inds, smpl))
 
 
-
-
-
-
-
-
-
-
-
-
+for _, r in results:
+    for _, val in r:
+        print(f'{score(val)}  {np.sum(val < borders[2,:])}   {np.sum(val > borders[3,:])}')
 
 
 
