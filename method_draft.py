@@ -252,14 +252,116 @@ def get_day_fullrandom2(foods, recipes, borders, mins, recipes_samples = 10, max
     return Day(recipes_weights, food_weights, score, np.sum(score < borders[0,:]))
 
 
+def get_day_fullrandom3(foods, recipes, borders, recipes_samples = 10, max_count = 3, tryes = 10):
+    
+    # recipes part
+    
+    recipes_inds = np.random.choice(recipes.shape[0], recipes_samples, replace = False)
+    
+    recipes_used = recipes[recipes_inds,:]
+        
+    counts = np.zeros(recipes_samples)
+    
+    bord = borders[0:2,:].copy()
+
+    for _ in range(max_count):
+        
+        no_progress = 0
+        
+        for i in range(recipes_samples):
+            
+            new_bord = currect_diff(bord, recipes_used[i,:])
+
+            if is_valid_diff(new_bord):
+                bord = new_bord
+                counts[i] += 1
+            else:
+                no_progress += 1
+        
+        if no_progress == recipes_samples:
+            break
+    
+    #r = np.sum(recipes_used * counts.reshape(recipes_used.shape[0], 1), axis = 0)
+    #print(np.sum(r > borders[1,:]) == 0)
+    
+    
+    # foods part
+    
+    prob_food_inds = np.array([i for i, food in enumerate(foods) if np.sum(food>bord[1,:]) == 0 ])
+    #print(prob_food_inds)
+    print(f'{prob_food_inds.size} <= {foods.shape[0]}')
+    
+    if prob_food_inds.size == 0:
+        food_weights = np.zeros(foods.shape[0])
+        f = np.zeros(foods.shape[1])
+    else:
+    
+        food_size = prob_food_inds.size
+        
+        food_inds = prob_food_inds.copy() #np.arange(food_size)
+        
+        minval = float('inf')
+        best_count2 = None
+        stab = bord.copy()
+    
+        for _ in range(tryes):
+            np.random.shuffle(food_inds)
+            
+            counts2 = np.zeros(food_size)
+            bord = stab.copy()
+            progress = False
+            
+            for i in range(food_size):
+                
+                while True:
+                    new_bord = currect_diff(bord, foods[food_inds[i],:])
+                    
+                    if is_valid_diff(new_bord):
+                        bord = new_bord
+                        counts2[i] += 1
+                        progress = True
+                    else:
+                        break
+                    
+            val = np.sum(bord[0,:]/borders[0, :])
+            if val < minval:
+                best_count2 = np.zeros(foods.shape[0])
+                best_count2[food_inds] = counts2.copy()
+                minval = val
+            
+            if not progress:
+                break
+            
+        
+        food_weights = best_count2
+        f = np.sum(foods * food_weights.reshape(food_weights.size, 1), axis = 0)
+    
+    
+    
+    
+    # currect weights
+            
+    recipes_weights = np.zeros(recipes.shape[0])
+    recipes_weights[recipes_inds] = counts
+    #print(recipes_weights)
+    
+    
+    r = np.sum(recipes * recipes_weights.reshape(recipes.shape[0], 1), axis = 0)
+    
+    
+    score = r + f
+    #assert(np.sum(score > borders[1,:]) == 0)
+    
+    return Day(recipes_weights, food_weights, score, np.sum(score < borders[0,:]))
+
+
 def get_candidates(foods, recipes, borders, recipes_samples = 4, max_count = 3, tryes = 10, count = 100):
     #return [get_day_fullrandom(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count)]
-    return Parallel(n_jobs=6)(delayed(get_day_fullrandom)(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count))
+    return Parallel(n_jobs=6)(delayed(get_day_fullrandom3)(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count))
 
 def get_optimal_candidates(foods, recipes, borders, recipes_samples = 4, max_count = 3, tryes = 10, count = 100, max_error_count = 3):
     cands = get_candidates(foods, recipes, borders, recipes_samples, max_count, tryes, count)
     return [cand for cand in cands if cand.less_than_down <= max_error_count]
-
 
 
 
@@ -283,7 +385,11 @@ recipes = recipes.iloc[:,:-1].to_numpy()
 
 borders = pd.read_csv('currect_borders.csv').to_numpy()
 
-
+for _ in range(20):
+    d = get_day_fullrandom3(foods, recipes, borders, 4, 3, 10)
+    print(d.less_than_down)
+    
+    
 candidates = get_optimal_candidates(foods, recipes, borders, 4, 3, 10, 100, 3)
 
 
