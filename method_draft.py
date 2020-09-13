@@ -459,10 +459,17 @@ avg = borders[4,:] #np.mean(glob_borders, axis = 0)
 score = lambda sample: AE(sample, avg, avg)
 
 weeks = get7sum(limit)
-weeks[1] = [[7]]
+
 up_lim = max(weeks.keys())
 
 def coef_sum(inds):
+    """
+    принимает на вход индексы образцов из samples
+    
+    считает комбинации этих samples по weeks
+    
+    возвращает [(комбинация дней из weeks, вектор суммы)], (есть ли суперудачный ответ хотя бы в одной комбинации)
+    """
     t = len(inds)
     res = []
     good = False
@@ -484,7 +491,7 @@ comps = np.arange(len(samples))
 results = []
 for number in range(1,8): # how many different days by week
     for _ in range(10):
-        inds = list(np.random.choice(comps, min(number, len(comps)), replace = False))
+        inds = list(np.random.choice(comps, min(number, len(comps)), replace = False)) # столько-то индексов для массива samples
         smpl, flag = coef_sum(inds)
         if flag:
             print(smpl)
