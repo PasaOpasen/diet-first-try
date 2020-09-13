@@ -12,6 +12,8 @@ from joblib import Parallel, delayed
 np.set_printoptions(precision=3, suppress = True)
 
 
+
+
 class Day:
     def __init__(self, recipes_weights, food_weights, combination = 0, less_than_down = None):
         self.recipes_weights = recipes_weights
@@ -19,10 +21,14 @@ class Day:
         self.combination = combination
         self.less_than_down = less_than_down
 
+
 class Weeks:
     def __init__(self, days, configs):
         self.days = days
         self.configurations = configs
+
+
+
 
 
 def currect_diff(borders, sample):
@@ -40,6 +46,15 @@ def is_valid_diff(difference):
     """
     return  np.sum(difference[1,:] < 0) == 0  # all((v>=0 for v in difference[2,:]))
 
+
+def will_be_valid_diff(borders, sample):
+    
+    for i in range(borders.shape[1]):
+        if borders[1,i] < sample[i]:
+            return False
+    
+    return True
+    
 
 def is_between(sample, borders):
     
@@ -264,17 +279,23 @@ def get_day_fullrandom3(foods, recipes, borders, recipes_samples = 10, max_count
     
     bord = borders[0:2,:].copy()
 
+    valid_flags = np.ones(recipes_samples, dtype = np.bool)
     for _ in range(max_count):
         
         no_progress = 0
         
         for i in range(recipes_samples):
             
-            new_bord = currect_diff(bord, recipes_used[i,:])
-
-            if is_valid_diff(new_bord):
-                bord = new_bord
-                counts[i] += 1
+            if valid_flags[i]:
+            
+                new_bord = currect_diff(bord, recipes_used[i,:])
+    
+                if is_valid_diff(new_bord):
+                    bord = new_bord
+                    counts[i] += 1
+                else:
+                    valid_flags[i] = False
+                    no_progress += 1
             else:
                 no_progress += 1
         
