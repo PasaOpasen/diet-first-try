@@ -38,19 +38,9 @@ class Day:
 
 
 class Weeks:
-    def __init__(self, days, configs, score, lower, upper):
+    def __init__(self, days, configs):
         self.days = days
         self.configurations = configs
-        self.score = score
-        self.lower = lower
-        self.upper = upper
-        
-    def show_info(self):
-        print(f'I have {len(self.days)} days')
-        print(f'My combination: {self.configurations[0]}')
-        print(f'Vector: {self.configurations[1]}')
-        print(f'score = {self.score}')
-        print(f'lower error is {self.lower}, upper error is {self.upper}')
 
 
 
@@ -92,12 +82,108 @@ def is_between(sample, borders):
     return True
 
 
-def AE(sample, target):
-    """
-    сумма процентных отклонений от цели
-    """
-    return np.sum(np.abs(sample-target)/target)    
+def AE(sample, target, maxes):
+    return np.sum(np.abs(sample-target)/maxes)    
 
+
+def get_day_fullrandom(foods, recipes, borders, recipes_samples = 10, max_count = 3, tryes = 10):
+    
+    # recipes part
+    
+    recipes_inds = np.random.choice(recipes.shape[0], recipes_samples, replace = False)
+    
+    recipes_used = recipes[recipes_inds,:]
+        
+    counts = np.zeros(recipes_samples)
+    
+    bord = borders[0:2,:].copy()
+
+    for _ in range(max_count):
+        
+        no_progress = 0
+        
+        for i in range(recipes_samples):
+            
+            new_bord = currect_diff(bord, recipes_used[i,:])
+
+            if is_valid_diff(new_bord):
+                bord = new_bord
+                counts[i] += 1
+            else:
+                no_progress += 1
+        
+        if no_progress == recipes_samples:
+            break
+    
+    #r = np.sum(recipes_used * counts.reshape(recipes_used.shape[0], 1), axis = 0)
+    #print(np.sum(r > borders[1,:]) == 0)
+    
+    
+    # foods part
+    
+    food_size = foods.shape[0]
+    
+    food_inds = np.arange(food_size)
+    
+    minval = float('inf')
+    best_count2 = None
+    stab = bord.copy()
+
+    for _ in range(tryes):
+        np.random.shuffle(food_inds)
+        
+        counts2 = np.zeros(food_size)
+        bord = stab.copy()
+        progress = False
+        
+        for i in range(food_size):
+            
+            while True:
+                new_bord = currect_diff(bord, foods[food_inds[i],:])
+                
+                if is_valid_diff(new_bord):
+                    bord = new_bord
+                    counts2[i] += 1
+                    progress = True
+                else:
+                    break
+                
+        val = np.sum(bord[0,:]/borders[0, :])
+        if val < minval:
+            best_count2 = np.zeros(food_size)
+            best_count2[food_inds] = counts2.copy()
+            minval = val
+        
+        if not progress:
+            break
+        
+    
+    counts2 = best_count2
+    
+    
+    # currect weights
+            
+    recipes_weights = np.zeros(recipes.shape[0])
+    recipes_weights[recipes_inds] = counts
+    #print(recipes_weights)
+    
+    food_weights = best_count2
+    #food_weights = np.zeros(food_size)
+    #food_weights[food_inds] = counts2
+    #print(food_weights)
+    
+    # results
+    
+    r = np.sum(recipes * recipes_weights.reshape(recipes.shape[0], 1), axis = 0)
+    f = np.sum(foods * food_weights.reshape(food_size, 1), axis = 0)
+    
+    score = r + f
+    #assert(np.sum(score > borders[1,:]) == 0)
+    
+    return Day(recipes_weights, food_weights, score, np.sum(score < borders[0,:]))
+
+
+def get_day_fullrandom2(foods, recipes, borders, mins, recipes_samples = 10, max_count = 3, tryes = 10):
     
     # recipes part
     
@@ -376,93 +462,80 @@ candidates = get_optimal_candidates(foods, recipes, borders, 4, 3, 10, 100, 3)
 
 
 
+limit = 7
 
 
+samples = [res.combination for res in candidates]
 
-def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7):
+glob_borders = borders[2:4, :]
 
+avg = borders[4,:] #np.mean(glob_borders, axis = 0)
+#score = lambda sample: AE(sample, avg, glob_borders[1,:])
+score = lambda sample: AE(sample, avg, avg)
+
+weeks = get7sum(limit)
+
+up_lim = max(weeks.keys())
+
+def coef_sum(inds):
+    """
+    принимает на вход индексы образцов из samples
     
-    samples = [res.combination for res in candidates]
+    считает комбинации этих samples по weeks
     
-    glob_borders = borders[2:4, :]
+    возвращает [(комбинация дней из weeks, вектор суммы)], (есть ли суперудачный ответ хотя бы в одной комбинации)
+    """
+    t = len(inds)
+    res = []
+    good = False
+    for arr in weeks[t]:
+        sm = samples[inds[0]]*arr[0]
+        for i in range(1, len(arr)):
+            sm += samples[inds[i]]*arr[i]
+        sm /= 7
+        res.append((arr, sm))
+        if is_between(sm, glob_borders):
+            good = True
     
-    avg = borders[4,:] 
+    return res, good
+
+
+comps = np.arange(len(samples))
     
-    score = lambda sample: AE(sample, avg)
-    
-    weeks = get7sum(limit)
-    
-    up_lim = max(weeks.keys())
-    
-    def coef_sum(inds):
-        """
-        принимает на вход индексы образцов из samples
+
+# это кусок кода ищет для индексов от samples типа (1, 2, 3) разные комбинации этих рецептов по неделе типа [2, 4, 1], то есть два дня первый рецепт, и дня второй и один день третий
+
+choises_count = range(min(10), math.factorial(len(samples)))
+
+results = []
+for number in range(1,8): # how many different days by week
+    for _ in choises_count:
+        inds = list(np.random.choice(comps, min(number, len(comps)), replace = False)) # столько-то индексов для массива samples
+        smpl, flag = coef_sum(inds)
+        if flag:
+            print(smpl)
         
-        считает комбинации этих samples по weeks
-        
-        возвращает [(комбинация дней из weeks, вектор суммы)], (есть ли суперудачный ответ хотя бы в одной комбинации)
-        """
-        t = len(inds)
-        res = []
-        good = False
-        for arr in weeks[t]:
-            sm = samples[inds[0]]*arr[0]
-            for i in range(1, len(arr)):
-                sm += samples[inds[i]]*arr[i]
-            sm /= 7
-            res.append((arr, sm))
-            if is_between(sm, glob_borders):
-                good = True
-        
-        return res, good
-    
-    
-    len_samples = len(samples)
-    
-    
-    comps = np.arange(len_samples)
-        
-    
-    # это кусок кода ищет для индексов от samples типа (1, 2, 3) разные комбинации этих рецептов по неделе типа [2, 4, 1], то есть два дня первый рецепт, и дня второй и один день третий
-    
-    choises_count = range(min(10, math.factorial(len_samples)))
-    
-    results = []
-    for number in range(1,8): # how many different days by week
-        for _ in choises_count:
-            inds = list(np.random.choice(comps, min(number, len_samples), replace = False)) # столько-то индексов для массива samples
-            smpl, flag = coef_sum(inds)
-            if flag:
-                print(smpl)
-            
-            results.append((inds, smpl))
-    
-    # убираются дубликаты и генерируются ответы
-    
-    unique_results = []
-    uniqs = []
-    for p in results:
-        if p[0] not in uniqs:
-            for pair in p[1]:
-            
-                score_ = score(pair[1])
-                lower = np.sum(pair[1] < borders[2,:])
-                upper = np.sum(pair[1] > borders[3,:])
-                
-                if lower <= lower_error and upper <= upper_error:
-                    unique_results.append(Weeks([candidates[k] for k in p[0]], pair, score_, lower, upper))
-                    uniqs.append(p[0])
-    
-    return unique_results
+        results.append((inds, smpl))
+
+# убираются дубликаты
+
+unique_results = []
+uniqs = []
+for p in results:
+    if p[0] not in uniqs:
+        unique_results.append(Weeks([candidates[k] for k in p[0]],p[1]))
+        uniqs.append(p[0])
 
 
-
-weeks = get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7)
-    
-    
-for week in weeks:
-    week.show_info()
+for r in unique_results:
+    for _, val in r.configurations:
+        print(f'{score(val)}  {np.sum(val < borders[2,:])}   {np.sum(val > borders[3,:])}')
     print()
+
+
+
+
+
 
 
 
