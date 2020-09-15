@@ -9,6 +9,8 @@ import math
 import numpy as np
 from weeksum import get7sum
 from joblib import Parallel, delayed
+import json
+
 
 np.set_printoptions(precision=3, suppress = True)
 
@@ -34,6 +36,41 @@ class Day:
         print(fi)
         print()
         print(f'result: {self.combination} with {self.less_than_down} lesses under lower border')
+    
+    def to_dictionary(self):
+        
+        answer = {
+            'recipes':[],
+            'foods':[],
+            'combination': self.combination.tolist(),
+            'lower_error': int(self.less_than_down)
+                  }
+        
+        for i, r in enumerate(self.recipes_weights):
+            if r != 0:
+                answer['recipes'].append({
+                    'index': i,
+                    'count': int(r)
+                    })
+                
+        for i, f in enumerate(self.food_weights):
+            if f != 0:
+                answer['foods'].append({
+                    'index': i,
+                    'count': int(f)
+                    }) 
+        
+        return answer
+    
+    def to_json(self, file_name):
+        
+        dictionary = self.to_dictionary()
+        
+        with open(file_name, "w") as write_file:
+            json.dump(dictionary, write_file, indent = 4)
+        
+                
+        
         
 
 
@@ -51,6 +88,32 @@ class Weeks:
         print(f'Vector: {self.configurations[1]}')
         print(f'score = {self.score}')
         print(f'lower error is {self.lower}, upper error is {self.upper}')
+        
+    def to_dictionary(self):
+        answer = {
+            
+            'vector_of_combination': self.configurations[1].tolist(),
+            'score': self.score,
+            'lower_error': int(self.lower),
+            'upper_error': int(self.upper),
+            'days_in_week': [],
+                  }
+        
+        for day , count in zip(self.days, self.configurations[0]):
+            answer['days_in_week'].append({
+                'day': day.to_dictionary(),
+                'repeats_in_week': int(count)
+                })
+        
+        return answer
+    
+    def to_json(self, file_name):
+        dictionary = self.to_dictionary()
+        
+        with open(file_name, "w") as write_file:
+            json.dump(dictionary, write_file, indent = 4)
+        
+
 
 
 
@@ -98,102 +161,6 @@ def AE(sample, target):
     """
     return np.sum(np.abs(sample-target)/target)    
 
-    
-    # recipes part
-    
-    recipes_inds = np.random.choice(recipes.shape[0], recipes_samples, replace = False)
-    
-    recipes_used = recipes[recipes_inds,:]
-        
-    counts = np.zeros(recipes_samples)
-    
-    bord = borders[0:2,:].copy()
-
-    for _ in range(max_count):
-        
-        no_progress = 0
-        
-        for i in range(recipes_samples):
-            
-            new_bord = currect_diff(bord, recipes_used[i,:])
-
-            if is_valid_diff(new_bord):
-                bord = new_bord
-                counts[i] += 1
-            else:
-                no_progress += 1
-        
-        if no_progress == recipes_samples:
-            break
-    
-    #r = np.sum(recipes_used * counts.reshape(recipes_used.shape[0], 1), axis = 0)
-    #print(np.sum(r > borders[1,:]) == 0)
-    
-    
-    # foods part
-    
-    if np.sum(mins > bord[1,:]):
-        count2 = np.zeros(foods.shape[0])
-        f = np.zeros(foods.shape[1])
-    else:
-    
-        food_size = foods.shape[0]
-        
-        food_inds = np.arange(food_size)
-        
-        minval = float('inf')
-        best_count2 = None
-        stab = bord.copy()
-    
-        for _ in range(tryes):
-            np.random.shuffle(food_inds)
-            
-            counts2 = np.zeros(food_size)
-            bord = stab.copy()
-            progress = False
-            
-            for i in range(food_size):
-                
-                while True:
-                    new_bord = currect_diff(bord, foods[food_inds[i],:])
-                    
-                    if is_valid_diff(new_bord):
-                        bord = new_bord
-                        counts2[i] += 1
-                        progress = True
-                    else:
-                        break
-                    
-            val = np.sum(bord[0,:]/borders[0, :])
-            if val < minval:
-                best_count2 = np.zeros(food_size)
-                best_count2[food_inds] = counts2.copy()
-                minval = val
-            
-            if not progress:
-                break
-            
-        
-        counts2 = best_count2
-        
-        food_weights = best_count2
-        f = np.sum(foods * food_weights.reshape(food_size, 1), axis = 0)
-    
-    
-    # currect weights
-            
-    recipes_weights = np.zeros(recipes.shape[0])
-    recipes_weights[recipes_inds] = counts
-    #print(recipes_weights)
-    
-    
-    r = np.sum(recipes * recipes_weights.reshape(recipes.shape[0], 1), axis = 0)
-    
-    
-    score = r + f
-    #assert(np.sum(score > borders[1,:]) == 0)
-    
-    return Day(recipes_weights, food_weights, score, np.sum(score < borders[0,:]))
 
 
 def get_day_fullrandom3(foods, recipes, borders, recipes_samples = 10, max_count = 3, tryes = 10):
@@ -342,6 +309,8 @@ borders = pd.read_csv('currect_borders.csv').to_numpy()
     
 candidates = get_optimal_candidates(foods, recipes, borders, 4, 3, 10, 100, 3)
 
+for i, c in enumerate(candidates):
+    c.to_json(f'day {i+1}.json')
 
 # recipes_count = np.arange(2, 11)
 # max_count = np.arange(1, 5)
@@ -460,8 +429,9 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
 weeks = get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7)
     
     
-for week in weeks:
+for i, week in enumerate(weeks):
     week.show_info()
+    week.to_json(f'week {i+1}.json')
     print()
 
 
