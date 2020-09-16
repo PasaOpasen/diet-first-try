@@ -1,0 +1,91 @@
+{
+    "recipes": [
+        {
+            "index": "14450",
+            "count": 3
+        },
+        {
+            "index": "25791",
+            "count": 3
+        },
+        {
+            "index": "24760",
+            "count": 3
+        }
+    ],
+    "foods": [
+        {
+            "index": "237",
+            "count": 2
+        },
+        {
+            "index": "293",
+            "count": 2
+        },
+        {
+            "index": "373",
+            "count": 1
+        },
+        {
+            "index": "828",
+            "count": 14
+        },
+        {
+            "index": "2303",
+            "count": 1
+        },
+        {
+            "index": "2501",
+            "count": 1
+        },
+        {
+            "index": "2556",
+            "count": 1
+        },
+        {
+            "index": "4481",
+            "count": 1
+        },
+        {
+            "index": "4625",
+            "count": 5
+        },
+        {
+            "index": "6093",
+            "count": 1
+        }
+    ],
+    "combination": {
+        "energy": 3348.88,
+        "serine": 5.746,
+        "omega_3": 4.26,
+        "omega_6": 6.429,
+        "omega_9": 7.507,
+        "potassium": 4826.17,
+        "calcium": 918.9000000000001,
+        "magnesium": 663.39,
+        "sodium": 5249.930000000001,
+        "phosphorus": 1961.302,
+        "iron": 27.646800000000002,
+        "manganese": 6.6434,
+        "copper": 2709.3100000000004,
+        "selen": 154.42,
+        "zinc": 16.18,
+        "cobalt": 48.0,
+        "molybdenum": 92.9,
+        "chrome": 121.0,
+        "iodine": 107.5,
+        "vitamin_a": 1861.2900000000002,
+        "vitamin_b1": 2.3760000000000003,
+        "vitamin_b2": 1.889,
+        "vitamin_b5": 7.465,
+        "vitamin_b6": 2.931,
+        "vitamin_b9": 495.20000000000005,
+        "vitamin_b12": 3.75,
+        "vitamin_c": 100.49,
+        "vitamin_k": 129.19,
+        "vitamin_e": 14.8,
+        "beta_carotene": 11.869
+    },
+    "lower_error": 3
+}

@@ -19,6 +19,9 @@ np.set_printoptions(precision=3, suppress = True)
 
 
 
+def get_dict(names, values):
+    return {n: v for n, v in zip(names, values)}
+
 
 class Day:
     def __init__(self, recipes_weights, food_weights, combination = 0, less_than_down = None):
@@ -40,34 +43,34 @@ class Day:
         print()
         print(f'result: {self.combination} with {self.less_than_down} lesses under lower border')
     
-    def to_dictionary(self):
+    def to_dictionary(self, indexes):
         
         answer = {
             'recipes':[],
             'foods':[],
-            'combination': self.combination.tolist(),
+            'combination': get_dict(indexes['goal_columns'],self.combination), #self.combination.tolist(),
             'lower_error': int(self.less_than_down)
                   }
         
         for i, r in enumerate(self.recipes_weights):
             if r != 0:
                 answer['recipes'].append({
-                    'index': i,
+                    'index': indexes['recipes_names'][i],
                     'count': int(r)
                     })
                 
         for i, f in enumerate(self.food_weights):
             if f != 0:
                 answer['foods'].append({
-                    'index': i,
+                    'index': indexes['foods_names'][i],
                     'count': int(f)
                     }) 
         
         return answer
     
-    def to_json(self, file_name):
+    def to_json(self, file_name, indexes):
         
-        dictionary = self.to_dictionary()
+        dictionary = self.to_dictionary(indexes)
         
         with open(file_name, "w") as write_file:
             json.dump(dictionary, write_file, indent = 4)
@@ -92,10 +95,10 @@ class Weeks:
         print(f'score = {self.score}')
         print(f'lower error is {self.lower}, upper error is {self.upper}')
         
-    def to_dictionary(self):
+    def to_dictionary(self, indexes):
         answer = {
             
-            'vector_of_combination': self.configurations[1].tolist(),
+            'vector_of_combination': get_dict(indexes['goal_columns'], self.configurations[1]), #self.configurations[1].tolist(),
             'score': self.score,
             'lower_error': int(self.lower),
             'upper_error': int(self.upper),
@@ -104,14 +107,14 @@ class Weeks:
         
         for day , count in zip(self.days, self.configurations[0]):
             answer['days_in_week'].append({
-                'day': day.to_dictionary(),
+                'day': day.to_dictionary(indexes),
                 'repeats_in_week': int(count)
                 })
         
         return answer
     
-    def to_json(self, file_name):
-        dictionary = self.to_dictionary()
+    def to_json(self, file_name, indexes):
+        dictionary = self.to_dictionary(indexes)
         
         with open(file_name, "w") as write_file:
             json.dump(dictionary, write_file, indent = 4)
@@ -305,8 +308,8 @@ borders = borders.to_numpy()
 candidates = get_optimal_candidates(foods, recipes, borders, 4, 3, 10, 100, 3)
 
 
-# for i, c in enumerate(candidates):
-#     c.to_json(f'day {i+1}.json')
+for i, c in enumerate(candidates):
+    c.to_json(f'results/day {i+1}.json', indexes)
 
 
 
@@ -429,7 +432,7 @@ weeks = get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3,
     
 for i, week in enumerate(weeks):
     week.show_info()
-    #week.to_json(f'week {i+1}.json')
+    week.to_json(f'results/week {i+1}.json', indexes)
     print()
 
 

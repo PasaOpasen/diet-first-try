@@ -1,0 +1,91 @@
+{
+    "recipes": [
+        {
+            "index": "1935",
+            "count": 3
+        },
+        {
+            "index": "17214",
+            "count": 3
+        },
+        {
+            "index": "21890",
+            "count": 3
+        }
+    ],
+    "foods": [
+        {
+            "index": "828",
+            "count": 13
+        },
+        {
+            "index": "1495",
+            "count": 1
+        },
+        {
+            "index": "1555",
+            "count": 11
+        },
+        {
+            "index": "1798",
+            "count": 3
+        },
+        {
+            "index": "2233",
+            "count": 1
+        },
+        {
+            "index": "2865",
+            "count": 4
+        },
+        {
+            "index": "4699",
+            "count": 2
+        },
+        {
+            "index": "4932",
+            "count": 1
+        },
+        {
+            "index": "5221",
+            "count": 7
+        },
+        {
+            "index": "6093",
+            "count": 58
+        }
+    ],
+    "combination": {
+        "energy": 3345.52,
+        "serine": 6.3870000000000005,
+        "omega_3": 1.097,
+        "omega_6": 5.625,
+        "omega_9": 7.9670000000000005,
+        "potassium": 5248.860000000001,
+        "calcium": 1080.2,
+        "magnesium": 481.87,
+        "sodium": 5051.78,
+        "phosphorus": 1966.779,
+        "iron": 18.915599999999998,
+        "manganese": 3.6318,
+        "copper": 3499.96,
+        "selen": 121.39,
+        "zinc": 10.05,
+        "cobalt": 27.05,
+        "molybdenum": 58.75,
+        "chrome": 28.95,
+        "iodine": 523.42,
+        "vitamin_a": 1223.64,
+        "vitamin_b1": 2.183,
+        "vitamin_b2": 4.5489999999999995,
+        "vitamin_b5": 8.377,
+        "vitamin_b6": 2.258,
+        "vitamin_b9": 539.87,
+        "vitamin_b12": 4.42,
+        "vitamin_c": 246.63,
+        "vitamin_k": 314.10999999999996,
+        "vitamin_e": 12.920000000000002,
+        "beta_carotene": 6.216
+    },
+    "lower_error": 3
+}

@@ -162,8 +162,8 @@ def get_data(file_name = 'norms.txt'):
     
     
     indexes = {
-        'recipes_names': recipes_names,
-        'foods_names': foods_names,
+        'recipes_names': list(recipes_names),
+        'foods_names': list(foods_names),
         'goal_columns': list(borders.columns)
         }
     
