@@ -7,12 +7,9 @@ Created on Sun Aug 23 15:17:26 2020
 
 import math
 import numpy as np
-import pandas as pd
 from weeksum import get7sum
 from joblib import Parallel, delayed
 import json
-
-from loading import get_data
 
 
 np.set_printoptions(precision=3, suppress = True)
@@ -288,14 +285,22 @@ def get_optimal_candidates(foods, recipes, borders, recipes_samples = 4, max_cou
 np.random.seed(5)
 
 
-foods, recipes, borders, indexes = get_data()
+import pandas as pd
 
+foods = pd.read_csv('currect_foods.csv')
+
+#food_names = foods.name
+#foods = foods.iloc[:,:-1].to_numpy()
 
 foods = foods.to_numpy()
 
+recipes = pd.read_csv('currect_recipes.csv')
+
+#recipes_names = recipes.name
 recipes = recipes.iloc[:,:-1].to_numpy()
 
-borders = borders.to_numpy()
+
+borders = pd.read_csv('currect_borders.csv').to_numpy()
 
 # for _ in range(20):
 #     d = get_day_fullrandom3(foods, recipes, borders, 4, 3, 10)
