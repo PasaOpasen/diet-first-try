@@ -8,6 +8,7 @@ Created on Sun Aug 23 15:17:26 2020
 import math
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from weeksum import get7sum
 from joblib import Parallel, delayed
 import json
@@ -74,7 +75,33 @@ class Day:
         
         with open(file_name, "w") as write_file:
             json.dump(dictionary, write_file, indent = 4)
+            
+    def plot(self, file_name, indexes, borders):
         
+        df = pd.DataFrame({
+            'nutrients': indexes['goal_columns'],
+            'current result': self.combination/borders[1,:]*100,
+            'lower border': borders[0,:]/borders[1,:]*100,
+            'upper border': borders[1,:]/borders[1,:]*100
+            })
+        
+        fig, ax = plt.subplots()
+        
+
+        
+        
+        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red')
+        
+        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black')
+        
+        df.plot(kind='bar',x='nutrients', y='current result', ax = ax)
+        
+        ax.set_xticklabels(df['nutrients'], rotation=90)
+        
+        plt.savefig(file_name, dpi = 350, bbox_inches = "tight")
+        
+        plt.close()
+
                 
         
         
@@ -310,6 +337,7 @@ candidates = get_optimal_candidates(foods, recipes, borders, 4, 3, 10, 100, 3)
 
 for i, c in enumerate(candidates):
     c.to_json(f'results/day {i+1}.json', indexes)
+    c.plot(f'results/day {i+1}.png', indexes, borders)
 
 
 
