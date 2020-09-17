@@ -19,9 +19,57 @@ from loading import get_data
 np.set_printoptions(precision=3, suppress = True)
 
 
+# Little functions
+
+
+def currect_diff(borders, sample):
+    """
+    сдвигаем коридор вниз на величину образца, причем для нижнего коридора не бывает отрицательных значений
+    """  
+    res = borders - sample
+    res[0,:] = np.maximum(0, res[0,:])
+    return res
+
+
+def is_valid_diff(difference):
+    """
+    если верхняя граница не пересечена, всё пока валидно
+    """
+    return  np.sum(difference[1,:] < 0) == 0  # all((v>=0 for v in difference[2,:]))
+
+
+def will_be_valid_diff(borders, sample):
+    
+    for i in range(borders.shape[1]):
+        if borders[1,i] < sample[i]:
+            return False
+    
+    return True
+    
+
+def is_between(sample, borders):
+    
+    if np.sum(sample < borders[0,:]) != 0:
+        return False
+    
+    if np.sum(sample > borders[1,:]) != 0:
+        return False
+    
+    return True
+
+
+def AE(sample, target):
+    """
+    сумма процентных отклонений от цели
+    """
+    return np.sum(np.abs(sample-target)/target)    
+
+
 
 def get_dict(names, values):
     return {n: v for n, v in zip(names, values)}
+
+# Classes
 
 
 class Day:
@@ -90,11 +138,44 @@ class Day:
 
         
         
-        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red')
+        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red', marker = 'o')
         
-        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black')
+        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black', marker = 'o')
         
         df.plot(kind='bar',x='nutrients', y='current result', ax = ax)
+        
+        ax.set_xticklabels(df['nutrients'], rotation=90)
+        
+        plt.savefig(file_name, dpi = 350, bbox_inches = "tight")
+        
+        plt.close()
+        
+    
+    def plot2(self, file_name, indexes, borders, foods, recipes):
+        
+        df = pd.DataFrame({
+            'nutrients': indexes['goal_columns'],
+            'current result': self.combination/borders[1,:]*100,
+            'by recipes': self.recipes_weights.dot(recipes)/borders[1,:]*100,
+            'by foods': self.food_weights.dot(foods)/borders[1,:]*100,
+            'lower border': borders[0,:]/borders[1,:]*100,
+            'upper border': borders[1,:]/borders[1,:]*100
+            })
+        
+        
+        print(np.allclose(df['current result'].values, (df['by recipes'] + df['by foods']).values))
+        
+        df['by foods'] = df['by recipes'] + df['by foods']
+        
+        fig, ax = plt.subplots()
+        
+
+        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red', marker = 'o')
+        
+        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black', marker = 'o')
+        
+        df.plot(kind='bar',x='nutrients', y='by foods', ax = ax)
+        df.plot(kind='bar',x='nutrients', y='by recipes', ax = ax, color="C2")
         
         ax.set_xticklabels(df['nutrients'], rotation=90)
         
@@ -104,8 +185,6 @@ class Day:
 
                 
         
-        
-
 
 class Weeks:
     def __init__(self, days, configs, score, lower, upper):
@@ -146,53 +225,6 @@ class Weeks:
         with open(file_name, "w") as write_file:
             json.dump(dictionary, write_file, indent = 4)
         
-
-
-
-
-
-
-def currect_diff(borders, sample):
-    """
-    сдвигаем коридор вниз на величину образца, причем для нижнего коридора не бывает отрицательных значений
-    """  
-    res = borders - sample
-    res[0,:] = np.maximum(0, res[0,:])
-    return res
-
-
-def is_valid_diff(difference):
-    """
-    если верхняя граница не пересечена, всё пока валидно
-    """
-    return  np.sum(difference[1,:] < 0) == 0  # all((v>=0 for v in difference[2,:]))
-
-
-def will_be_valid_diff(borders, sample):
-    
-    for i in range(borders.shape[1]):
-        if borders[1,i] < sample[i]:
-            return False
-    
-    return True
-    
-
-def is_between(sample, borders):
-    
-    if np.sum(sample < borders[0,:]) != 0:
-        return False
-    
-    if np.sum(sample > borders[1,:]) != 0:
-        return False
-    
-    return True
-
-
-def AE(sample, target):
-    """
-    сумма процентных отклонений от цели
-    """
-    return np.sum(np.abs(sample-target)/target)    
 
 
 
@@ -315,31 +347,6 @@ def get_optimal_candidates(foods, recipes, borders, recipes_samples = 4, max_cou
 
 
 
-np.random.seed(5)
-
-
-foods, recipes, borders, indexes = get_data()
-
-
-foods = foods.to_numpy()
-
-recipes = recipes.iloc[:,:-1].to_numpy()
-
-borders = borders.to_numpy()
-
-# for _ in range(20):
-#     d = get_day_fullrandom3(foods, recipes, borders, 4, 3, 10)
-#     print(d.less_than_down)
-    
-    
-candidates = get_optimal_candidates(foods, recipes, borders, 4, 3, 10, 100, 3)
-
-
-for i, c in enumerate(candidates):
-    c.to_json(f'results/day {i+1}.json', indexes)
-    c.plot(f'results/day {i+1}.png', indexes, borders)
-
-
 
 # recipes_count = np.arange(2, 11)
 # max_count = np.arange(1, 5)
@@ -368,10 +375,6 @@ for i, c in enumerate(candidates):
 #     plt.savefig(f'./day_config_probs/recipes_count = {recipes_count[i]}.png', dpi = 300)
 #     plt.close()
 #     #plt.show()
-
-
-
-
 
 
 
@@ -455,13 +458,34 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
 
 
 
-weeks = get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7)
+np.random.seed(5)
+
+
+
+foods, recipes, borders, indexes = get_data()
+
+
+
+# for _ in range(20):
+#     d = get_day_fullrandom3(foods, recipes, borders, 4, 3, 10)
+#     print(d.less_than_down)
     
     
-for i, week in enumerate(weeks):
-    week.show_info()
-    week.to_json(f'results/week {i+1}.json', indexes)
-    print()
+candidates = get_optimal_candidates(foods, recipes, borders, 4, 3, 10, 100, 3)
+
+
+for i, c in enumerate(candidates):
+    c.to_json(f'results/day {i+1}.json', indexes)
+    c.plot2(f'results/day {i+1}.png', indexes, borders, foods, recipes)
+
+
+#weeks = get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7)
+    
+    
+# for i, week in enumerate(weeks):
+#     week.show_info()
+#     week.to_json(f'results/week {i+1}.json', indexes)
+#     print()
 
 
 

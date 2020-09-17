@@ -1,37 +1,37 @@
 {
     "vector_of_combination": {
-        "energy": 3347.8042857142855,
-        "serine": 4.746714285714286,
-        "omega_3": 0.7750000000000001,
-        "omega_6": 4.949,
-        "omega_9": 7.983142857142858,
-        "potassium": 5127.694285714286,
-        "calcium": 1109.2985714285714,
-        "magnesium": 849.3028571428571,
-        "sodium": 4211.26,
-        "phosphorus": 2439.011,
-        "iron": 19.622971428571425,
-        "manganese": 14.93862857142857,
-        "copper": 2598.9871428571428,
-        "selen": 163.48571428571427,
-        "zinc": 13.769714285714286,
-        "cobalt": 34.14142857142857,
-        "molybdenum": 133.7514285714286,
-        "chrome": 79.96000000000001,
-        "iodine": 458.2585714285715,
-        "vitamin_a": 1375.2728571428572,
-        "vitamin_b1": 2.8414285714285716,
-        "vitamin_b2": 2.3125714285714283,
-        "vitamin_b5": 9.308285714285715,
-        "vitamin_b6": 3.456857142857143,
-        "vitamin_b9": 484.5642857142857,
-        "vitamin_b12": 4.758571428571429,
-        "vitamin_c": 306.82428571428574,
-        "vitamin_k": 138.40571428571428,
-        "vitamin_e": 19.072857142857142,
-        "beta_carotene": 9.984
+        "energy": 3349.79,
+        "serine": 4.675857142857143,
+        "omega_3": 3.5015714285714283,
+        "omega_6": 4.917571428571429,
+        "omega_9": 7.256285714285715,
+        "potassium": 5326.895714285715,
+        "calcium": 889.9257142857142,
+        "magnesium": 906.12,
+        "sodium": 3407.1400000000003,
+        "phosphorus": 2295.3489999999997,
+        "iron": 20.64417142857143,
+        "manganese": 7.047514285714286,
+        "copper": 3054.472857142857,
+        "selen": 67.79857142857142,
+        "zinc": 22.563571428571432,
+        "cobalt": 42.13428571428572,
+        "molybdenum": 154.50714285714284,
+        "chrome": 70.74571428571429,
+        "iodine": 353.77714285714285,
+        "vitamin_a": 1260.5042857142857,
+        "vitamin_b1": 1.779714285714286,
+        "vitamin_b2": 1.8501428571428573,
+        "vitamin_b5": 8.463714285714287,
+        "vitamin_b6": 3.8417142857142856,
+        "vitamin_b9": 558.5971428571429,
+        "vitamin_b12": 3.105714285714285,
+        "vitamin_c": 313.9357142857143,
+        "vitamin_k": 190.69,
+        "vitamin_e": 17.794285714285714,
+        "beta_carotene": 7.6499999999999995
     },
-    "score": 31.650007783286895,
+    "score": 27.82864529492656,
     "lower_error": 3,
     "upper_error": 3,
     "days_in_week": [
@@ -39,95 +39,87 @@
             "day": {
                 "recipes": [
                     {
-                        "index": "1441",
+                        "index": "25279",
+                        "count": 2
+                    },
+                    {
+                        "index": "23156",
                         "count": 3
                     },
                     {
-                        "index": "26623",
+                        "index": "24370",
                         "count": 3
                     },
                     {
-                        "index": "19929",
-                        "count": 1
-                    },
-                    {
-                        "index": "26057",
+                        "index": "5886",
                         "count": 3
                     }
                 ],
                 "foods": [
                     {
                         "index": "828",
-                        "count": 61
-                    },
-                    {
-                        "index": "1555",
-                        "count": 1
+                        "count": 23
                     },
                     {
                         "index": "1798",
                         "count": 1
                     },
                     {
-                        "index": "2739",
-                        "count": 2
+                        "index": "2320",
+                        "count": 1
                     },
                     {
-                        "index": "2792",
+                        "index": "3136",
+                        "count": 7
+                    },
+                    {
+                        "index": "5221",
                         "count": 5
                     },
                     {
-                        "index": "3272",
+                        "index": "5902",
                         "count": 1
                     },
                     {
-                        "index": "4046",
+                        "index": "5935",
                         "count": 2
                     },
                     {
-                        "index": "5469",
-                        "count": 1
-                    },
-                    {
-                        "index": "5976",
-                        "count": 2
-                    },
-                    {
-                        "index": "6381",
-                        "count": 6
+                        "index": "6093",
+                        "count": 82
                     }
                 ],
                 "combination": {
-                    "energy": 3351.79,
-                    "serine": 4.087,
-                    "omega_3": 0.371,
-                    "omega_6": 4.721,
-                    "omega_9": 8.626000000000001,
-                    "potassium": 4711.92,
-                    "calcium": 927.77,
-                    "magnesium": 470.56,
-                    "sodium": 5179.259999999999,
-                    "phosphorus": 1645.523,
-                    "iron": 15.0232,
-                    "manganese": 10.3476,
-                    "copper": 1405.0700000000002,
-                    "selen": 90.1,
-                    "zinc": 12.26,
-                    "cobalt": 16.869999999999997,
-                    "molybdenum": 156.54000000000002,
-                    "chrome": 53.56,
-                    "iodine": 284.29,
-                    "vitamin_a": 1316.75,
-                    "vitamin_b1": 1.4140000000000001,
-                    "vitamin_b2": 1.6,
-                    "vitamin_b5": 7.316000000000001,
-                    "vitamin_b6": 2.554,
-                    "vitamin_b9": 443.78999999999996,
-                    "vitamin_b12": 4.07,
-                    "vitamin_c": 314.59,
-                    "vitamin_k": 287.24,
-                    "vitamin_e": 44.39,
-                    "beta_carotene": 7.162
+                    "energy": 3347.44,
+                    "serine": 7.79,
+                    "omega_3": 0.42200000000000004,
+                    "omega_6": 5.476,
+                    "omega_9": 4.001,
+                    "potassium": 5633.62,
+                    "calcium": 1227.3,
+                    "magnesium": 775.06,
+                    "sodium": 5185.04,
+                    "phosphorus": 2161.979,
+                    "iron": 27.9976,
+                    "manganese": 8.820799999999998,
+                    "copper": 2382.89,
+                    "selen": 87.03999999999999,
+                    "zinc": 9.794999999999998,
+                    "cobalt": 28.749999999999996,
+                    "molybdenum": 156.12,
+                    "chrome": 37.120000000000005,
+                    "iodine": 200.29,
+                    "vitamin_a": 1756.66,
+                    "vitamin_b1": 2.088,
+                    "vitamin_b2": 1.594,
+                    "vitamin_b5": 5.978,
+                    "vitamin_b6": 3.0300000000000002,
+                    "vitamin_b9": 400.61,
+                    "vitamin_b12": 2.08,
+                    "vitamin_c": 311.46,
+                    "vitamin_k": 277.03999999999996,
+                    "vitamin_e": 14.37,
+                    "beta_carotene": 11.24
                 },
                 "lower_error": 3
             },
@@ -137,201 +129,173 @@
             "day": {
                 "recipes": [
                     {
-                        "index": "25500",
+                        "index": "24098",
                         "count": 3
                     },
                     {
-                        "index": "26167",
-                        "count": 3
+                        "index": "8533",
+                        "count": 2
                     },
                     {
-                        "index": "23497",
-                        "count": 1
+                        "index": "9732",
+                        "count": 2
+                    },
+                    {
+                        "index": "5064",
+                        "count": 3
                     }
                 ],
                 "foods": [
                     {
-                        "index": "479",
-                        "count": 1
-                    },
-                    {
-                        "index": "617",
-                        "count": 1
-                    },
-                    {
                         "index": "828",
-                        "count": 41
-                    },
-                    {
-                        "index": "1441",
-                        "count": 2
+                        "count": 83
                     },
                     {
                         "index": "1798",
-                        "count": 1
-                    },
-                    {
-                        "index": "2739",
-                        "count": 11
-                    },
-                    {
-                        "index": "4656",
-                        "count": 1
-                    },
-                    {
-                        "index": "5970",
                         "count": 2
                     },
                     {
-                        "index": "6093",
-                        "count": 10
+                        "index": "2556",
+                        "count": 1
                     },
                     {
-                        "index": "6528",
+                        "index": "3258",
+                        "count": 1
+                    },
+                    {
+                        "index": "6096",
+                        "count": 56
+                    },
+                    {
+                        "index": "6194",
                         "count": 5
-                    },
-                    {
-                        "index": "6810",
-                        "count": 11
                     }
                 ],
                 "combination": {
-                    "energy": 3347.56,
-                    "serine": 3.926,
-                    "omega_3": 1.0750000000000002,
-                    "omega_6": 3.3770000000000002,
-                    "omega_9": 6.394,
-                    "potassium": 6230.67,
-                    "calcium": 846.4200000000001,
-                    "magnesium": 854.46,
-                    "sodium": 1905.5800000000002,
-                    "phosphorus": 2117.103,
-                    "iron": 27.9992,
-                    "manganese": 14.3026,
-                    "copper": 3156.24,
-                    "selen": 146.42999999999998,
-                    "zinc": 14.760000000000002,
-                    "cobalt": 66.6,
-                    "molybdenum": 76.26,
-                    "chrome": 118.7,
-                    "iodine": 430.6,
-                    "vitamin_a": 1455.68,
-                    "vitamin_b1": 2.258,
-                    "vitamin_b2": 2.61,
-                    "vitamin_b5": 10.942999999999998,
-                    "vitamin_b6": 3.2920000000000003,
-                    "vitamin_b9": 693.54,
-                    "vitamin_b12": 3.2600000000000002,
-                    "vitamin_c": 314.99,
-                    "vitamin_k": 94.44000000000001,
-                    "vitamin_e": 18.3,
-                    "beta_carotene": 7.941000000000001
+                    "energy": 3343.49,
+                    "serine": 4.181,
+                    "omega_3": 3.669,
+                    "omega_6": 3.2570000000000006,
+                    "omega_9": 6.413,
+                    "potassium": 5705.45,
+                    "calcium": 1384.68,
+                    "magnesium": 618.03,
+                    "sodium": 1755.7900000000002,
+                    "phosphorus": 1181.809,
+                    "iron": 27.9996,
+                    "manganese": 5.620800000000001,
+                    "copper": 2488.4700000000003,
+                    "selen": 70.6,
+                    "zinc": 10.7,
+                    "cobalt": 20.84,
+                    "molybdenum": 138.53,
+                    "chrome": 59.7,
+                    "iodine": 371.3,
+                    "vitamin_a": 918.12,
+                    "vitamin_b1": 1.9500000000000002,
+                    "vitamin_b2": 1.287,
+                    "vitamin_b5": 5.718,
+                    "vitamin_b6": 2.8369999999999997,
+                    "vitamin_b9": 678.47,
+                    "vitamin_b12": 3.36,
+                    "vitamin_c": 312.03999999999996,
+                    "vitamin_k": 199.64000000000001,
+                    "vitamin_e": 9.09,
+                    "beta_carotene": 4.34
                 },
                 "lower_error": 3
             },
-            "repeats_in_week": 2
+            "repeats_in_week": 1
         },
         {
             "day": {
                 "recipes": [
                     {
-                        "index": "4849",
-                        "count": 1
+                        "index": "7364",
+                        "count": 2
                     },
                     {
-                        "index": "20940",
+                        "index": "4923",
                         "count": 3
                     },
                     {
-                        "index": "19630",
+                        "index": "26020",
+                        "count": 2
+                    },
+                    {
+                        "index": "12354",
                         "count": 3
                     }
                 ],
                 "foods": [
                     {
-                        "index": "212",
-                        "count": 2
-                    },
-                    {
-                        "index": "427",
-                        "count": 1
+                        "index": "425",
+                        "count": 3
                     },
                     {
                         "index": "828",
-                        "count": 79
+                        "count": 27
                     },
                     {
                         "index": "1798",
                         "count": 2
                     },
                     {
-                        "index": "3559",
+                        "index": "2739",
                         "count": 1
                     },
                     {
-                        "index": "3864",
-                        "count": 2
-                    },
-                    {
-                        "index": "4794",
-                        "count": 13
-                    },
-                    {
-                        "index": "4973",
+                        "index": "3258",
                         "count": 1
                     },
                     {
-                        "index": "5846",
-                        "count": 3
+                        "index": "4792",
+                        "count": 4
                     },
                     {
                         "index": "6093",
-                        "count": 1
+                        "count": 9
                     },
                     {
-                        "index": "6096",
-                        "count": 1
-                    },
-                    {
-                        "index": "6604",
+                        "index": "6810",
                         "count": 1
                     }
                 ],
                 "combination": {
-                    "energy": 3346.93,
-                    "serine": 5.322,
-                    "omega_3": 0.726,
-                    "omega_6": 5.792,
-                    "omega_9": 8.617,
-                    "potassium": 4680.15,
-                    "calcium": 1286.12,
-                    "magnesium": 941.41,
-                    "sodium": 5122.1,
-                    "phosphorus": 2798.337,
-                    "iron": 16.5848,
-                    "manganese": 16.4044,
-                    "copper": 2618.84,
-                    "selen": 190.35999999999999,
-                    "zinc": 13.652000000000001,
-                    "cobalt": 22.229999999999997,
-                    "molybdenum": 156.8,
-                    "chrome": 67.19,
-                    "iodine": 515.58,
-                    "vitamin_a": 1349.7,
-                    "vitamin_b1": 3.49,
-                    "vitamin_b2": 2.3419999999999996,
-                    "vitamin_b5": 8.989,
-                    "vitamin_b6": 3.7650000000000006,
-                    "vitamin_b9": 390.27,
-                    "vitamin_b12": 5.68,
-                    "vitamin_c": 300.8,
-                    "vitamin_k": 123.18,
-                    "vitamin_e": 13.129999999999999,
-                    "beta_carotene": 11.711
+                    "energy": 3351.52,
+                    "serine": 4.152,
+                    "omega_3": 4.084,
+                    "omega_6": 5.138,
+                    "omega_9": 8.076,
+                    "potassium": 5189.84,
+                    "calcium": 723.5,
+                    "magnesium": 989.95,
+                    "sodium": 3381.83,
+                    "phosphorus": 2544.731,
+                    "iron": 17.7024,
+                    "manganese": 6.9782,
+                    "copper": 3301.99,
+                    "selen": 63.39,
+                    "zinc": 27.490000000000002,
+                    "cobalt": 49.07,
+                    "molybdenum": 157.38,
+                    "chrome": 79.68,
+                    "iodine": 380.96999999999997,
+                    "vitamin_a": 1229.75,
+                    "vitamin_b1": 1.6840000000000002,
+                    "vitamin_b2": 2.0140000000000002,
+                    "vitamin_b5": 9.510000000000002,
+                    "vitamin_b6": 4.205,
+                    "vitamin_b9": 566.22,
+                    "vitamin_b12": 3.26,
+                    "vitamin_c": 314.81,
+                    "vitamin_k": 171.63,
+                    "vitamin_e": 20.22,
+                    "beta_carotene": 7.593999999999999
                 },
                 "lower_error": 3
             },
-            "repeats_in_week": 4
+            "repeats_in_week": 5
         }
     ]
 }

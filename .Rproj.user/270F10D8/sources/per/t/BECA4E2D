@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1600329604755.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BECA4E2D",
+    "lastKnownWriteTime" : 7160569971446915616,
+    "last_content_update" : 1600329604755,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "8790E1FC",
+        "caption" : "recipes",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=recipes&cache_key=8790E1FC",
+        "displayedObservations" : 1000,
+        "environment" : "",
+        "expression" : "recipes",
+        "object" : "recipes",
+        "preview" : 0,
+        "totalObservations" : 1000,
+        "variables" : 30
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
