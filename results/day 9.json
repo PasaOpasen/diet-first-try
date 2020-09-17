@@ -1,0 +1,103 @@
+{
+    "recipes": [
+        {
+            "index": "24299",
+            "count": 1
+        },
+        {
+            "index": "4901",
+            "count": 2
+        },
+        {
+            "index": "4690",
+            "count": 2
+        },
+        {
+            "index": "485",
+            "count": 2
+        },
+        {
+            "index": "20787",
+            "count": 2
+        },
+        {
+            "index": "26966",
+            "count": 2
+        },
+        {
+            "index": "26070",
+            "count": 3
+        },
+        {
+            "index": "24535",
+            "count": 2
+        },
+        {
+            "index": "25310",
+            "count": 3
+        },
+        {
+            "index": "23775",
+            "count": 2
+        }
+    ],
+    "foods": [
+        {
+            "index": "1798",
+            "count": 3
+        },
+        {
+            "index": "3351",
+            "count": 4
+        },
+        {
+            "index": "4761",
+            "count": 3
+        },
+        {
+            "index": "4969",
+            "count": 2
+        },
+        {
+            "index": "5687",
+            "count": 2
+        },
+        {
+            "index": "6097",
+            "count": 2
+        }
+    ],
+    "combination": {
+        "energy": 3176.91,
+        "serine": 3.4309999999999996,
+        "omega_3": 0.9609999999999999,
+        "omega_6": 6.215,
+        "omega_9": 8.475999999999999,
+        "potassium": 5995.21,
+        "calcium": 1451.22,
+        "magnesium": 780.6700000000001,
+        "sodium": 3351.0099999999998,
+        "phosphorus": 2799.56,
+        "iron": 25.279999999999998,
+        "manganese": 22.054,
+        "copper": 2899.82,
+        "selen": 177.12,
+        "zinc": 27.44,
+        "cobalt": 9.520000000000001,
+        "molybdenum": 36.46,
+        "chrome": 30.099999999999998,
+        "iodine": 492.88,
+        "vitamin_a": 985.6800000000001,
+        "vitamin_b1": 1.8279999999999998,
+        "vitamin_b2": 2.083,
+        "vitamin_b5": 8.258000000000001,
+        "vitamin_b6": 2.859,
+        "vitamin_b9": 385.13,
+        "vitamin_b12": 3.06,
+        "vitamin_c": 314.47999999999996,
+        "vitamin_k": 260.29,
+        "vitamin_e": 19.169999999999998,
+        "beta_carotene": 5.3309999999999995
+    },
+    "lower_error": 3
+}

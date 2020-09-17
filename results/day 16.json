@@ -1,0 +1,123 @@
+{
+    "recipes": [
+        {
+            "index": "22700",
+            "count": 2
+        },
+        {
+            "index": "12070",
+            "count": 1
+        },
+        {
+            "index": "26362",
+            "count": 3
+        },
+        {
+            "index": "9631",
+            "count": 3
+        },
+        {
+            "index": "22488",
+            "count": 1
+        },
+        {
+            "index": "16477",
+            "count": 2
+        },
+        {
+            "index": "17214",
+            "count": 1
+        },
+        {
+            "index": "26070",
+            "count": 3
+        },
+        {
+            "index": "18625",
+            "count": 1
+        },
+        {
+            "index": "791",
+            "count": 2
+        }
+    ],
+    "foods": [
+        {
+            "index": "800",
+            "count": 6
+        },
+        {
+            "index": "1478",
+            "count": 1
+        },
+        {
+            "index": "1798",
+            "count": 2
+        },
+        {
+            "index": "2739",
+            "count": 3
+        },
+        {
+            "index": "3258",
+            "count": 1
+        },
+        {
+            "index": "4032",
+            "count": 1
+        },
+        {
+            "index": "4932",
+            "count": 1
+        },
+        {
+            "index": "5846",
+            "count": 1
+        },
+        {
+            "index": "5916",
+            "count": 1
+        },
+        {
+            "index": "6846",
+            "count": 1
+        },
+        {
+            "index": "6853",
+            "count": 1
+        }
+    ],
+    "combination": {
+        "energy": 3203.1699999999996,
+        "serine": 3.31,
+        "omega_3": 3.5869999999999993,
+        "omega_6": 6.675000000000001,
+        "omega_9": 8.65,
+        "potassium": 5755.76,
+        "calcium": 1042.67,
+        "magnesium": 546.88,
+        "sodium": 5176.75,
+        "phosphorus": 1672.6200000000001,
+        "iron": 27.990000000000002,
+        "manganese": 3.1374000000000004,
+        "copper": 1860.44,
+        "selen": 137.76,
+        "zinc": 6.645,
+        "cobalt": 40.370000000000005,
+        "molybdenum": 51.04,
+        "chrome": 91.93,
+        "iodine": 452.53,
+        "vitamin_a": 1124.85,
+        "vitamin_b1": 1.6960000000000002,
+        "vitamin_b2": 2.697,
+        "vitamin_b5": 7.421999999999999,
+        "vitamin_b6": 3.2720000000000002,
+        "vitamin_b9": 362.71,
+        "vitamin_b12": 5.76,
+        "vitamin_c": 315.0,
+        "vitamin_k": 194.25,
+        "vitamin_e": 26.729999999999997,
+        "beta_carotene": 4.328
+    },
+    "lower_error": 3
+}
