@@ -71,10 +71,14 @@ def which_max(vals, classes, class_index):
     """
     mx = float('-inf')
     
+    #result = (mx, -1)
+    #print(classes)
+    #print(class_index)
+    
     for i, (v, c) in enumerate(zip(vals, classes)):
         if c == class_index:
             if v > mx:
-                mx = v
+                mx = v #; print(v)
                 result = (v, i)
     return result
 
@@ -83,7 +87,7 @@ def which_max(vals, classes, class_index):
 
 
 
-def get_split_by_sums(vals, prefer_classes, sums, tol = 10):
+def get_split_by_sums(vals, prefer_classes, sums, tol = 10, max_iter = 30):
     """
     ищет разбиение на классы, дающее сумму в классах в нужных диапазонах
 
@@ -108,20 +112,22 @@ def get_split_by_sums(vals, prefer_classes, sums, tol = 10):
     sums = np.array(sums) * vals.sum()
     
     result_classes = prefer_classes.copy()
+    labels = np.unique(result_classes)
     
     dic, flag = get_current_dic(vals, result_classes, sums, tol)
-        
+    #print(dic)    
     if flag:
         return result_classes, list(dic.values())   
     
     procents = np.array(list(dic.values()))
+    k = 0
     
     while not flag:
         
         #print(procents)
         
-        max_class = np.argmax(procents)
-        min_class = np.argmin(procents)
+        max_class = labels[np.argmax(procents)]
+        min_class = labels[np.argmin(procents)]
         #print(f'{max_class} {min_class}')
         value, index = which_max(vals, result_classes, max_class)
         
@@ -132,7 +138,11 @@ def get_split_by_sums(vals, prefer_classes, sums, tol = 10):
         
         dic, flag = get_current_dic(vals, result_classes, sums, tol)
         procents = np.array(list(dic.values()))
+        k += 1
+        print(dic)
         
+        if k == max_iter:
+            return result_classes, []
         #flag = np.sum(np.abs(procents) > tol) == 0
     
     return result_classes, list(procents)

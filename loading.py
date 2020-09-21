@@ -164,7 +164,9 @@ def get_data(file_name = 'norms.txt'):
     indexes = {
         'recipes_names': list(recipes_names),
         'foods_names': list(foods_names),
-        'goal_columns': list(borders.columns)
+        'goal_columns': list(borders.columns),
+        'recipes_energy': recipes['energy'].values,
+        'foods_enegry': foods['energy'].values
         }
     
     return foods.to_numpy(), recipes.iloc[:,:-1].to_numpy(), borders.to_numpy(), indexes
