@@ -5,103 +5,161 @@
             "count": 2
         },
         {
-            "index": "4952",
+            "index": "24165",
             "count": 2
         },
         {
-            "index": "25709",
-            "count": 3
+            "index": "26303",
+            "count": 2
         },
         {
-            "index": "6408",
-            "count": 1
-        },
-        {
-            "index": "25082",
+            "index": "12364",
             "count": 2
         },
         {
             "index": "19186",
-            "count": 2
+            "count": 1
         },
         {
-            "index": "25330",
-            "count": 2
-        },
-        {
-            "index": "1492",
-            "count": 2
-        },
-        {
-            "index": "26057",
-            "count": 2
-        },
-        {
-            "index": "22944",
+            "index": "18593",
             "count": 3
+        },
+        {
+            "index": "584",
+            "count": 2
+        },
+        {
+            "index": "8535",
+            "count": 3
+        },
+        {
+            "index": "21597",
+            "count": 2
+        },
+        {
+            "index": "5085",
+            "count": 2
         }
     ],
     "foods": [
         {
-            "index": "479",
+            "index": "1195",
             "count": 1
         },
         {
-            "index": "532",
+            "index": "1449",
             "count": 1
         },
         {
             "index": "1798",
-            "count": 2
+            "count": 3
+        },
+        {
+            "index": "2470",
+            "count": 1
         },
         {
             "index": "2739",
             "count": 7
         },
         {
-            "index": "4480",
+            "index": "4669",
             "count": 1
         },
         {
-            "index": "4792",
+            "index": "6141",
             "count": 1
         },
         {
-            "index": "5244",
-            "count": 1
+            "index": "6810",
+            "count": 3
         }
     ],
     "combination": {
-        "energy": 3351.09,
-        "serine": 2.468,
-        "omega_3": 5.034000000000001,
-        "omega_6": 6.433,
-        "omega_9": 8.536,
-        "potassium": 6173.4,
-        "calcium": 699.22,
-        "magnesium": 837.44,
-        "sodium": 4296.02,
-        "phosphorus": 1846.15,
-        "iron": 21.060000000000002,
-        "manganese": 7.088,
-        "copper": 2621.29,
-        "selen": 74.57000000000001,
-        "zinc": 14.629999999999999,
-        "cobalt": 35.08,
-        "molybdenum": 36.22,
-        "chrome": 76.34,
-        "iodine": 376.24,
-        "vitamin_a": 1327.26,
-        "vitamin_b1": 1.8170000000000002,
-        "vitamin_b2": 2.3910000000000005,
-        "vitamin_b5": 9.82,
-        "vitamin_b6": 3.1270000000000002,
-        "vitamin_b9": 782.83,
-        "vitamin_b12": 3.15,
-        "vitamin_c": 314.52,
-        "vitamin_k": 309.92,
-        "vitamin_e": 16.86,
-        "beta_carotene": 10.52
+        "energy": 3032.27,
+        "protein": 145.59,
+        "fat": 81.21,
+        "carbohydrate": 417.15,
+        "serine": 2.607,
+        "omega_3": 1.091,
+        "omega_6": 5.687,
+        "omega_9": 7.551,
+        "potassium": 5933.08,
+        "calcium": 935.1800000000001,
+        "magnesium": 610.9,
+        "sodium": 5230.139999999999,
+        "phosphorus": 1571.88,
+        "iron": 27.99,
+        "manganese": 7.842,
+        "copper": 2800.84,
+        "selen": 50.66,
+        "zinc": 14.9,
+        "cobalt": 22.930000000000003,
+        "molybdenum": 105.96,
+        "chrome": 28.25,
+        "iodine": 503.27000000000004,
+        "vitamin_a": 975.66,
+        "vitamin_b1": 1.84,
+        "vitamin_b2": 2.09,
+        "vitamin_b5": 8.792,
+        "vitamin_b6": 2.899,
+        "vitamin_b9": 416.49,
+        "vitamin_b12": 4.49,
+        "vitamin_c": 314.90000000000003,
+        "vitamin_k": 186.70999999999998,
+        "vitamin_e": 15.119999999999997,
+        "beta_carotene": 6.5920000000000005
     },
-    "lower_error": 3
+    "lower_error": 4,
+    "split": {
+        "1": {
+            "recipes": {
+                "26303": 1,
+                "5085": 1
+            },
+            "foods": {
+                "1195": 1,
+                "1449": 1
+            },
+            "percent_of_sum": 15.419801007166251
+        },
+        "2": {
+            "recipes": {
+                "26478": 2,
+                "26303": 1,
+                "5085": 1
+            },
+            "foods": {
+                "6810": 1
+            },
+            "percent_of_sum": 10.683415395067064
+        },
+        "3": {
+            "recipes": {
+                "24165": 2,
+                "19186": 1,
+                "18593": 3
+            },
+            "foods": {
+                "4669": 1,
+                "6141": 1
+            },
+            "percent_of_sum": 41.992962368126854
+        },
+        "5": {
+            "recipes": {
+                "12364": 2,
+                "584": 2,
+                "8535": 3,
+                "21597": 2
+            },
+            "foods": {
+                "1798": 3,
+                "2470": 1,
+                "2739": 7,
+                "6810": 2
+            },
+            "percent_of_sum": 31.903821229639842
+        }
+    }
 }

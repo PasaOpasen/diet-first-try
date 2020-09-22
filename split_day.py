@@ -12,6 +12,20 @@ from collections import defaultdict
 from split_by_sums import get_split_by_sums, get_sums_by_classes
 
 
+splitter_map = {
+        # '1': 'завтрак',
+        # '2': 'перекус после завтрака',
+        # '3': 'обед',
+        # '4': 'перекус после обеда',
+        # '5': 'ужин',
+        # '6': 'перекус после ужина'
+        '1': 'breakfast',
+        '2': 'snack_after_breakfast',
+        '3': 'lunch',
+        '4': 'snack_after_lunch',
+        '5': 'dinner',
+        '6': 'snack_after_dinner'
+    }
 
 def splitDay(recipes_energy, foods_energy, recipes_vals, foods_vals, recipes_names, foods_names, recipes_classes, foods_classes, sums = [[15,10], 40, 35] , random_labels = [1,3,5], tol = 10, max_tryes = 20 ):
     
@@ -82,10 +96,10 @@ def splitDay(recipes_energy, foods_energy, recipes_vals, foods_vals, recipes_nam
     for _, row in total.iterrows():
         answer[row['class']][row['type']][row['id']] += 1
     
-    answer = {key:{tp:{k:v for k, v in answer[key][tp].items()} for tp in ['recipes', 'foods']} for key in np.unique(total['class'])}
+    answer = {splitter_map[key]:{tp:{k:v for k, v in answer[key][tp].items()} for tp in ['recipes', 'foods']} for key in np.unique(total['class'])}
     
     for key, val in dic.items():
-        answer[key]['percent_of_sum'] = val
+        answer[splitter_map[key]]['percent_of_sum'] = val
     
     
     return answer

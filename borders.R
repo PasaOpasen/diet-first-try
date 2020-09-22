@@ -10,7 +10,7 @@ colnames(mat) = right_columns
 mat = as_tibble(mat)
 
 # a
-mat$energy = c(0.93, 1.07, 0.97, 1.03)
+mat[,c('energy', 'fat', 'protein', 'carbohydrate')] = c(0.93, 1.07, 0.97, 1.03)
 
 # b
 mat[,c('beta_carotene',
