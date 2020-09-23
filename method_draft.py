@@ -9,247 +9,22 @@ import math
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from weeksum import get7sum
 from joblib import Parallel, delayed
 import json
 
+
+
+# my modules
+from weeksum import get7sum
 from loading import get_data
-from split_day import splitDay
+from little_functions import currect_diff, is_between, is_valid_diff, will_be_valid_diff, MAPE
+from classes import Day, Weeks
+
 
 
 np.set_printoptions(precision=3, suppress = True)
 
 
-# Little functions
-
-
-def currect_diff(borders, sample):
-    """
-    сдвигаем коридор вниз на величину образца, причем для нижнего коридора не бывает отрицательных значений
-    """  
-    res = borders - sample
-    res[0,:] = np.maximum(0, res[0,:])
-    return res
-
-
-def is_valid_diff(difference):
-    """
-    если верхняя граница не пересечена, всё пока валидно
-    """
-    return  np.sum(difference[1,:] < 0) == 0  # all((v>=0 for v in difference[2,:]))
-
-
-def will_be_valid_diff(borders, sample):
-    
-    for i in range(borders.shape[1]):
-        if borders[1,i] < sample[i]:
-            return False
-    
-    return True
-    
-
-def is_between(sample, borders):
-    
-    if np.sum(sample < borders[0,:]) != 0:
-        return False
-    
-    if np.sum(sample > borders[1,:]) != 0:
-        return False
-    
-    return True
-
-
-def AE(sample, target):
-    """
-    сумма процентных отклонений от цели
-    """
-    return np.sum(np.abs(sample-target)/target)    
-
-
-
-def get_dict(names, values):
-    return {n: v for n, v in zip(names, values)}
-
-
-# Classes
-
-
-class Day:
-    def __init__(self, recipes_weights, food_weights, combination = 0, less_than_down = None):
-        self.recipes_weights = recipes_weights
-        self.food_weights = food_weights
-        self.combination = combination
-        self.less_than_down = less_than_down
-        self.splitted = {}
-        
-    def show_info(self):
-        
-        ri = {i: r for i, r in enumerate(self.recipes_weights) if r != 0}
-        fi = {i: f for i, f in enumerate(self.food_weights) if f != 0}
-        
-        print('recipes index: count')
-        print(ri)
-        print()
-        print('food index: count')
-        print(fi)
-        print()
-        print(f'result: {self.combination} with {self.less_than_down} lesses under lower border')
-    
-    def set_splitter(self, indexes, sums = [[15,10], 40, 35], max_tryes = 20):
-        
-        for _ in range(max_tryes):
-            ans = splitDay(indexes['recipes_energy'], indexes['foods_enegry'], 
-                           self.recipes_weights, self.food_weights, 
-                           indexes['recipes_names'], indexes['foods_names'], 
-                           None, None, sums = sums)
-            if ans != None:
-                self.splitted = ans
-                return
-        
-    
-    def to_dictionary(self, indexes):
-        
-        answer = {
-            'recipes':[],
-            'foods':[],
-            'combination': get_dict(indexes['goal_columns'],self.combination), #self.combination.tolist(),
-            'lower_error': int(self.less_than_down)
-                  }
-        
-        for i, r in enumerate(self.recipes_weights):
-            if r != 0:
-                answer['recipes'].append({
-                    'index': indexes['recipes_names'][i],
-                    'count': int(r)
-                    })
-                
-        for i, f in enumerate(self.food_weights):
-            if f != 0:
-                answer['foods'].append({
-                    'index': indexes['foods_names'][i],
-                    'count': int(f)
-                    }) 
-        
-        
-        
-        if not bool(self.splitted):
-            self.set_splitter(indexes)
-        
-        answer['split'] = self.splitted
-        
-        return answer
-    
-    def to_json(self, file_name, indexes):
-        
-        dictionary = self.to_dictionary(indexes)
-        
-        with open(file_name, "w") as write_file:
-            json.dump(dictionary, write_file, indent = 4)
-            
-    def plot(self, file_name, indexes, borders):
-        
-        df = pd.DataFrame({
-            'nutrients': indexes['goal_columns'],
-            'current result': self.combination/borders[1,:]*100,
-            'lower border': borders[0,:]/borders[1,:]*100,
-            'upper border': borders[1,:]/borders[1,:]*100
-            })
-        
-        fig, ax = plt.subplots()
-        
-
-        
-        
-        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red', marker = 'o')
-        
-        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black', marker = 'o')
-        
-        df.plot(kind='bar',x='nutrients', y='current result', ax = ax)
-        
-        ax.set_xticklabels(df['nutrients'], rotation=90)
-        
-        plt.savefig(file_name, dpi = 350, bbox_inches = "tight")
-        
-        plt.close()
-        
-    
-    def plot2(self, file_name, indexes, borders, foods, recipes):
-        
-        df = pd.DataFrame({
-            'nutrients': indexes['goal_columns'],
-            'current result': self.combination/borders[1,:]*100,
-            'by recipes': self.recipes_weights.dot(recipes)/borders[1,:]*100,
-            'by foods': self.food_weights.dot(foods)/borders[1,:]*100,
-            'lower border': borders[0,:]/borders[1,:]*100,
-            'upper border': borders[1,:]/borders[1,:]*100,
-            'ideal': borders[4,:]/borders[1,:]*100
-            })
-        
-        
-        print(np.allclose(df['current result'].values, (df['by recipes'] + df['by foods']).values))
-        
-        df['by foods'] = df['by recipes'] + df['by foods']
-        
-        fig, ax = plt.subplots()
-        
-
-        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red', marker = 'o')
-        
-        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black', marker = 'o')
-        
-        df.plot(kind= 'line', x='nutrients', y='ideal', ax = ax, color = 'violet', linestyle='dashed', marker = 'X')
-        
-        df.plot(kind='bar',x='nutrients', y='by foods', ax = ax)
-        df.plot(kind='bar',x='nutrients', y='by recipes', ax = ax, color="C2")
-        
-        ax.set_xticklabels(df['nutrients'], rotation=90)
-        
-        plt.savefig(file_name, dpi = 350, bbox_inches = "tight")
-        
-        plt.close()
-
-                
-        
-
-class Weeks:
-    def __init__(self, days, configs, score, lower, upper):
-        self.days = days
-        self.configurations = configs
-        self.score = score
-        self.lower = lower
-        self.upper = upper
-        
-    def show_info(self):
-        print(f'I have {len(self.days)} days')
-        print(f'My combination: {self.configurations[0]}')
-        print(f'Vector: {self.configurations[1]}')
-        print(f'score = {self.score}')
-        print(f'lower error is {self.lower}, upper error is {self.upper}')
-        
-    def to_dictionary(self, indexes):
-        answer = {
-            
-            'vector_of_combination': get_dict(indexes['goal_columns'], self.configurations[1]), #self.configurations[1].tolist(),
-            'score': self.score,
-            'lower_error': int(self.lower),
-            'upper_error': int(self.upper),
-            'days_in_week': [],
-                  }
-        
-        for day , count in zip(self.days, self.configurations[0]):
-            answer['days_in_week'].append({
-                'day': day.to_dictionary(indexes),
-                'repeats_in_week': int(count)
-                })
-        
-        return answer
-    
-    def to_json(self, file_name, indexes):
-        dictionary = self.to_dictionary(indexes)
-        
-        with open(file_name, "w") as write_file:
-            json.dump(dictionary, write_file, indent = 4)
-        
 
 
 # как 5, но при начальном наборе foods старается брать только с высоким содержанием нутриентов, которых не хватает до нижней границы
@@ -311,7 +86,8 @@ def get_day_fullrandom6(foods, recipes, borders, recipes_samples = 10, max_count
     
     prob_food_inds = np.array([i for i, food in enumerate(foods) if np.sum(food>bord[1,:]) == 0 and np.sum(food[err_inds] >= low_foods)])
     #print(prob_food_inds)
-    print(f'{prob_food_inds.size} <= {foods.shape[0]}')
+    
+    #print(f'{prob_food_inds.size} <= {foods.shape[0]}')
     
     if prob_food_inds.size == 0:
         food_weights = np.zeros(foods.shape[0])
@@ -389,8 +165,6 @@ def get_day_fullrandom6(foods, recipes, borders, recipes_samples = 10, max_count
 
 
 
-
-
 def get_candidates(foods, recipes, borders, recipes_samples = 4, max_count = 3, tryes = 10, count = 100):
     return [get_day_fullrandom6(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count)]
     #return Parallel(n_jobs=6)(delayed(get_day_fullrandom6)(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count))
@@ -398,37 +172,6 @@ def get_candidates(foods, recipes, borders, recipes_samples = 4, max_count = 3, 
 def get_optimal_candidates(foods, recipes, borders, recipes_samples = 4, max_count = 3, tryes = 10, count = 100, max_error_count = 3):
     cands = get_candidates(foods, recipes, borders, recipes_samples, max_count, tryes, count)
     return [cand for cand in cands if cand.less_than_down <= max_error_count]
-
-
-
-
-# recipes_count = np.arange(2, 11)
-# max_count = np.arange(1, 5)
-# tryes = np.arange(2, 17, 2)
-# R = np.empty((recipes_count.size, max_count.size, tryes.size))
-
-# much = 400
-# for i in range(R.shape[0]):
-#     for j in range(R.shape[1]):
-#         for k in range(R.shape[2]):
-#             R[i, j, k] = len(get_optimal_candidates(foods, recipes, borders, recipes_count[i], max_count[j], tryes[k], much, 3))/much
-#     print(R[i,:,:])
-
-
-
-# import seaborn as sns
-# import matplotlib.pylab as plt
-
-# for i in range(len(recipes_count)):
-#     ax = sns.heatmap(R[i,:,:], linewidth=0.5, vmin=R.min(), vmax=R.max(), annot = True, cmap = 'plasma')
-#     ax.set_xticklabels(tryes)
-#     ax.set_yticklabels(max_count)
-#     plt.xlabel('Count of food attemps')
-#     plt.ylabel('Maximum count of each recipe')
-#     plt.title(f'Probs for {recipes_count[i]} recipes')
-#     plt.savefig(f'./day_config_probs/recipes_count = {recipes_count[i]}.png', dpi = 300)
-#     plt.close()
-#     #plt.show()
 
 
 
@@ -443,7 +186,7 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
     
     avg = borders[4,:] 
     
-    score = lambda sample: AE(sample, avg)
+    score = lambda sample: MAPE(sample, avg)
     
     weeks = get7sum(limit)
     
@@ -512,6 +255,12 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
 
 
 
+
+
+
+
+
+
 np.random.seed(5)
 
 
@@ -524,6 +273,7 @@ foods, recipes, borders, indexes = get_data()
 #     d = get_day_fullrandom3(foods, recipes, borders, 4, 3, 10)
 #     print(d.less_than_down)
     
+
     
 candidates = get_optimal_candidates(foods, recipes, borders, recipes_samples = 10, max_count = 3, tryes = 10, count = 100, max_error_count = 4)
 

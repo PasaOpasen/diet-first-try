@@ -10,9 +10,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json
 
+from split_day import splitDay
+
 
 def get_dict(names, values):
     return {n: v for n, v in zip(names, values)}
+
+
+# Classes
 
 
 class Day:
@@ -21,6 +26,7 @@ class Day:
         self.food_weights = food_weights
         self.combination = combination
         self.less_than_down = less_than_down
+        self.splitted = {}
         
     def show_info(self):
         
@@ -34,6 +40,18 @@ class Day:
         print(fi)
         print()
         print(f'result: {self.combination} with {self.less_than_down} lesses under lower border')
+    
+    def set_splitter(self, indexes, sums = [[15,10], 40, 35], max_tryes = 20):
+        
+        for _ in range(max_tryes):
+            ans = splitDay(indexes['recipes_energy'], indexes['foods_enegry'], 
+                           self.recipes_weights, self.food_weights, 
+                           indexes['recipes_names'], indexes['foods_names'], 
+                           None, None, sums = sums)
+            if ans != None:
+                self.splitted = ans
+                return
+        
     
     def to_dictionary(self, indexes):
         
@@ -58,6 +76,13 @@ class Day:
                     'count': int(f)
                     }) 
         
+        
+        
+        if not bool(self.splitted):
+            self.set_splitter(indexes)
+        
+        answer['split'] = self.splitted
+        
         return answer
     
     def to_json(self, file_name, indexes):
@@ -81,11 +106,47 @@ class Day:
 
         
         
-        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red')
+        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red', marker = 'o')
         
-        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black')
+        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black', marker = 'o')
         
         df.plot(kind='bar',x='nutrients', y='current result', ax = ax)
+        
+        ax.set_xticklabels(df['nutrients'], rotation=90)
+        
+        plt.savefig(file_name, dpi = 350, bbox_inches = "tight")
+        
+        plt.close()
+        
+    
+    def plot2(self, file_name, indexes, borders, foods, recipes):
+        
+        df = pd.DataFrame({
+            'nutrients': indexes['goal_columns'],
+            'current result': self.combination/borders[1,:]*100,
+            'by recipes': self.recipes_weights.dot(recipes)/borders[1,:]*100,
+            'by foods': self.food_weights.dot(foods)/borders[1,:]*100,
+            'lower border': borders[0,:]/borders[1,:]*100,
+            'upper border': borders[1,:]/borders[1,:]*100,
+            'ideal': borders[4,:]/borders[1,:]*100
+            })
+        
+        
+        print(np.allclose(df['current result'].values, (df['by recipes'] + df['by foods']).values))
+        
+        df['by foods'] = df['by recipes'] + df['by foods']
+        
+        fig, ax = plt.subplots()
+        
+
+        df.plot(kind= 'line', x='nutrients', y='upper border', ax = ax, color = 'red', marker = 'o')
+        
+        df.plot(kind= 'line', x='nutrients', y='lower border', ax = ax, color = 'black', marker = 'o')
+        
+        df.plot(kind= 'line', x='nutrients', y='ideal', ax = ax, color = 'violet', linestyle='dashed', marker = 'X')
+        
+        df.plot(kind='bar',x='nutrients', y='by foods', ax = ax)
+        df.plot(kind='bar',x='nutrients', y='by recipes', ax = ax, color="C2")
         
         ax.set_xticklabels(df['nutrients'], rotation=90)
         
@@ -95,8 +156,6 @@ class Day:
 
                 
         
-        
-
 
 class Weeks:
     def __init__(self, days, configs, score, lower, upper):
@@ -137,11 +196,3 @@ class Weeks:
         with open(file_name, "w") as write_file:
             json.dump(dictionary, write_file, indent = 4)
         
-
-
-
-
-
-
-
-
