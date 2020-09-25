@@ -13,20 +13,30 @@ import json
 from split_day import splitDay
 
 
+
+
 def get_dict(names, values):
     return {n: v for n, v in zip(names, values)}
 
 
-# Classes
 
 
 class Day:
+    """
+    суть построения дня такая:
+        главное в дне -- это чтоб он попадал в границы, из этого метода дни и генерируются
+        
+        всякая информация по поводу разбиения на приёмы пищи или дополнительных напитков -- это уже вторичные вещи,
+        которые должны добавляться к дню отдельно, ибо они нужны только для валидных дней и генерируются не обязательно мгновенно
+    """
     def __init__(self, recipes_weights, food_weights, combination = 0, less_than_down = None):
         self.recipes_weights = recipes_weights
         self.food_weights = food_weights
         self.combination = combination
         self.less_than_down = less_than_down
         self.splitted = {}
+        self.drinks = None
+        
         
     def show_info(self):
         
@@ -41,8 +51,17 @@ class Day:
         print()
         print(f'result: {self.combination} with {self.less_than_down} lesses under lower border')
     
+    
     def set_splitter(self, indexes, sums = [[15,10], 40, 35], max_tryes = 20):
+        """
+        создает разбиение дня в соответствии с процентами sums
         
+        пробует сделать это максимум max_tryes раз, в случае неудачи никак не меняет self.splitted
+        
+        нужно делать разные попытки, потому что в зависимости от начального разбиения по классам
+        алгоритм может не сойтись, поэтому для каждой новой попытки индексы (хотя бы некоторая их часть)
+        должны принимать случайные значения
+        """
         for _ in range(max_tryes):
             ans = splitDay(indexes['recipes_energy'], indexes['foods_enegry'], 
                            self.recipes_weights, self.food_weights, 
@@ -59,7 +78,8 @@ class Day:
             'recipes':[],
             'foods':[],
             'combination': get_dict(indexes['goal_columns'],self.combination), #self.combination.tolist(),
-            'lower_error': int(self.less_than_down)
+            'lower_error': int(self.less_than_down),
+            'water':{}
                   }
         
         for i, r in enumerate(self.recipes_weights):
@@ -68,20 +88,28 @@ class Day:
                     'index': indexes['recipes_names'][i],
                     'count': int(r)
                     })
+        answer['water']['recipes'] = np.sum(indexes['water']['recipes'] * self.recipes_weights)
                 
+        
         for i, f in enumerate(self.food_weights):
             if f != 0:
                 answer['foods'].append({
                     'index': indexes['foods_names'][i],
-                    'count': int(f)
-                    }) 
+                    'count': float(f/2) #int(f)
+                    })
+        answer['water']['foods']= np.sum(indexes['water']['foods'] * self.food_weights)
         
         
-        
+        # если сплит не считался или не был найден, поискать
         if not bool(self.splitted):
             self.set_splitter(indexes)
         
         answer['split'] = self.splitted
+        
+        # если напитки были созданы, добавить
+        if self.drinks != None:
+            answer['drinks'] = self.drinks
+        
         
         return answer
     
@@ -93,6 +121,9 @@ class Day:
             json.dump(dictionary, write_file, indent = 4)
             
     def plot(self, file_name, indexes, borders):
+        """
+        делает упрощённый рисунок
+        """
         
         df = pd.DataFrame({
             'nutrients': indexes['goal_columns'],
@@ -120,6 +151,10 @@ class Day:
         
     
     def plot2(self, file_name, indexes, borders, foods, recipes):
+        """
+        работает как plot, только делает ещё разбиение по recipes/foods
+        и некоторые дополнительные объекты
+        """
         
         df = pd.DataFrame({
             'nutrients': indexes['goal_columns'],
@@ -158,6 +193,9 @@ class Day:
         
 
 class Weeks:
+    """
+    неделя -- это набор дней в такой пропорции, чтобы усреднение по дням попадало в недельные границы
+    """
     def __init__(self, days, configs, score, lower, upper):
         self.days = days
         self.configurations = configs

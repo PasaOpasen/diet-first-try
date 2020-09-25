@@ -27,9 +27,9 @@ np.set_printoptions(precision=3, suppress = True)
 
 
 
-# как 6, но теперь сначала проверятся, будет ли новый коридор валиадным, а уже потом считается коридор, что позволило ускорить эту функцию аж в 2 раза
+# как 5, но при начальном наборе foods старается брать только с высоким содержанием нутриентов, которых не хватает до нижней границы
 
-def get_day_fullrandom7(foods, recipes, borders, recipes_samples = 10, max_count = 3, tryes = 10):  
+def get_day_fullrandom6(foods, recipes, borders, recipes_samples = 10, max_count = 3, tryes = 10):  
     rc = recipes_samples
     
     recipes_samples = rc*10
@@ -54,18 +54,10 @@ def get_day_fullrandom7(foods, recipes, borders, recipes_samples = 10, max_count
             
             if valid_flags[i]:
             
-                # new_bord = currect_diff(bord, recipes_used[i,:])
+                new_bord = currect_diff(bord, recipes_used[i,:])
     
-                # if is_valid_diff(new_bord):
-                #     bord = new_bord
-                #     counts[i] += 1
-                #     good_results += 1
-                # else:
-                #     valid_flags[i] = False
-                #     no_progress += 1
-    
-                if will_be_valid_diff(bord, recipes_used[i,:]):
-                    bord = currect_diff(bord, recipes_used[i,:])
+                if is_valid_diff(new_bord):
+                    bord = new_bord
                     counts[i] += 1
                     good_results += 1
                 else:
@@ -122,18 +114,10 @@ def get_day_fullrandom7(foods, recipes, borders, recipes_samples = 10, max_count
             for i in range(food_size):
                 
                 while True:
+                    new_bord = currect_diff(bord, foods[food_inds[i],:])
                     
-                    # new_bord = currect_diff(bord, foods[food_inds[i],:])
-                    
-                    # if is_valid_diff(new_bord):
-                    #     bord = new_bord
-                    #     counts2[i] += 1
-                    #     progress = True
-                    # else:
-                    #     break
-                    
-                    if will_be_valid_diff(bord, foods[food_inds[i],:]):
-                        bord = currect_diff(bord, foods[food_inds[i],:])
+                    if is_valid_diff(new_bord):
+                        bord = new_bord
                         counts2[i] += 1
                         progress = True
                     else:
@@ -182,8 +166,8 @@ def get_day_fullrandom7(foods, recipes, borders, recipes_samples = 10, max_count
 
 
 def get_candidates(foods, recipes, borders, recipes_samples = 4, max_count = 3, tryes = 10, count = 100):
-    return [get_day_fullrandom7(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count)]
-    #return Parallel(n_jobs=6)(delayed(get_day_fullrandom7)(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count))
+    return [get_day_fullrandom6(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count)]
+    #return Parallel(n_jobs=6)(delayed(get_day_fullrandom6)(foods, recipes, borders, recipes_samples, max_count, tryes) for _ in range(count))
 
 def get_optimal_candidates(foods, recipes, borders, recipes_samples = 4, max_count = 3, tryes = 10, count = 100, max_error_count = 3):
     cands = get_candidates(foods, recipes, borders, recipes_samples, max_count, tryes, count)

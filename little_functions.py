@@ -27,6 +27,9 @@ def is_valid_diff(difference):
 
 
 def will_be_valid_diff(borders, sample):
+    """
+    будет ли указанный пример внутри границ
+    """
     
     for i in range(borders.shape[1]):
         if borders[1,i] < sample[i]:
@@ -36,6 +39,9 @@ def will_be_valid_diff(borders, sample):
     
 
 def is_between(sample, borders):
+    """
+    находится ли этот sample внутри границ
+    """
     
     if np.sum(sample < borders[0,:]) != 0:
         return False

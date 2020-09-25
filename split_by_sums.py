@@ -101,7 +101,9 @@ def get_split_by_sums(vals, prefer_classes, sums, tol = 10, max_iter = 30):
         идеальные отношения сумм.
     tol : TYPE, optional
         на сколько процентов можно отклоняться. The default is 10.
-
+    
+    max_iter: максимальное число итераций, ибо может зацикливаться
+    
     Returns
     -------
     TYPE
@@ -153,10 +155,10 @@ def get_split_by_sums(vals, prefer_classes, sums, tol = 10, max_iter = 30):
 
 if __name__ == '__main__':
 
-
+    # очень маленький пример
     d = get_sums_by_classes(np.array([0.1,2,3,4,5]), np.array([1,2,3,2,1]))
     
-    print(d)
+    print(d) 
     
     print(convert_sums_by_classes(d, [3.0,7.0,1.0]))
     

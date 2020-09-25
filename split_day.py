@@ -28,7 +28,42 @@ splitter_map = {
     }
 
 def splitDay(recipes_energy, foods_energy, recipes_vals, foods_vals, recipes_names, foods_names, recipes_classes, foods_classes, sums = [[15,10], 40, 35] , random_labels = [1,3,5], tol = 10, max_tryes = 20 ):
-    
+    """
+    Разбивает все продукты и рецепты в дне так, чтобы калорийность по каждому приему пищи была близка к sums c ожибкой в tol%
+
+    Parameters
+    ----------
+    recipes_energy : калорийность каждого рецепта, массив нампай
+        DESCRIPTION.
+    foods_energy : то же самое для еды
+        DESCRIPTION.
+    recipes_vals : количества каждого рецепта (вектор, который хранится в дне)
+        DESCRIPTION.
+    foods_vals : то же самое по еде
+        DESCRIPTION.
+    recipes_names : id рецептов
+        DESCRIPTION.
+    foods_names : id еды
+        DESCRIPTION.
+    recipes_classes : начальные (предпочтительные) классы рецептов. если None, заполнятся рандомно, если random_labels != None
+        DESCRIPTION.
+    foods_classes : то же самое по продуктам
+        DESCRIPTION.
+    sums : list из процентов длины 3, причём каждый элемент списка может быть списком длины 2 (что значит, например, обед разбивается на сам обед и перекус после обеда), optional
+        DESCRIPTION. The default is [[15,10], 40, 35].
+    random_labels : метки классов в соответствии с splitter_map, optional
+        если не None, recipes_classes и foods_classes заполнятся рандомно этими метками. The default is [1,3,5].
+    tol : процент разрешимой ошибки, optional
+        DESCRIPTION. The default is 10.
+    max_tryes : максимальное число попыток при поиске разбиения, optional
+        DESCRIPTION. The default is 20.
+
+    Returns
+    -------
+    TYPE
+        DESCRIPTION.
+
+    """
     if random_labels != None:
         recipes_classes = np.random.choice(random_labels, recipes_vals.size, replace = True)
         foods_classes = np.random.choice(random_labels, foods_vals.size, replace = True)
@@ -96,7 +131,8 @@ def splitDay(recipes_energy, foods_energy, recipes_vals, foods_vals, recipes_nam
     for _, row in total.iterrows():
         answer[row['class']][row['type']][row['id']] += 1
     
-    answer = {splitter_map[key]:{tp:{k:v for k, v in answer[key][tp].items()} for tp in ['recipes', 'foods']} for key in np.unique(total['class'])}
+    #answer = {splitter_map[key]:{tp:{k:v for k, v in answer[key][tp].items()} for tp in ['recipes', 'foods']} for key in np.unique(total['class'])}
+    answer = {splitter_map[key]:{tp:{k:v/coef for k, v in answer[key][tp].items()} for tp, coef in zip(['recipes', 'foods'], (1, 2))} for key in np.unique(total['class'])}
     
     for key, val in dic.items():
         answer[splitter_map[key]]['percent_of_sum'] = val

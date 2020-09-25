@@ -50,6 +50,9 @@ def get_data(file_name = 'norms.txt'):
     recipes = pd.read_csv('recipes.csv')
     recipes_names = recipes.id.astype(str) 
     
+    drinks = pd.read_csv('drinks.csv')
+    drinks_names = drinks.id.astype(str) 
+    
     
     foods = foods.iloc[:,1:].dropna(axis=1, how='all').select_dtypes(include = np.number).drop('food_id', 1).fillna(0)
     
@@ -57,6 +60,11 @@ def get_data(file_name = 'norms.txt'):
     recipes = recipes.dropna(axis=1, how='all').select_dtypes(include = np.number).drop(['recipe_id','id','coef_for_men','coef_for_women'],1)
     
     
+    water = {
+        'recipes': recipes['water'].values,
+        'foods': foods['water'].values/2,
+        'drinks': drinks['water'].values/2
+        }
     
     # отбираю только общие столбцы
     
@@ -78,7 +86,6 @@ def get_data(file_name = 'norms.txt'):
     foods = foods.loc[:,right_columns]
     
     recipes = recipes.loc[:,right_columns]
-    
     
     
     # goal tabs
@@ -138,6 +145,9 @@ def get_data(file_name = 'norms.txt'):
     foods = foods.loc[:,goal_columns]
     recipes = recipes.loc[:,goal_columns]
     
+
+    drinks = drinks.loc[:, goal_columns.intersection(drinks.columns)]
+    
     
     #foods['name'] = foods_names
     recipes['name'] = recipes_names
@@ -164,12 +174,15 @@ def get_data(file_name = 'norms.txt'):
     indexes = {
         'recipes_names': list(recipes_names),
         'foods_names': list(foods_names),
+        'drinks_names': list(drinks_names),
         'goal_columns': list(borders.columns),
+        'drinks_columns': list(drinks.columns),
         'recipes_energy': recipes['energy'].values,
-        'foods_enegry': foods['energy'].values
+        'foods_enegry': foods['energy'].values/2,
+        'water': water
         }
     
-    return foods.to_numpy(), recipes.iloc[:,:-1].to_numpy(), borders.to_numpy(), indexes
+    return foods.to_numpy()/2, recipes.iloc[:,:-1].to_numpy(), borders.to_numpy(), drinks.to_numpy()/2, indexes
 
 
 
