@@ -272,8 +272,8 @@ def get_drinks_ways(needed_water, day, drinks, borders, indexes, max_drinks_samp
 
 
 
-WeekPair = namedtuple('WeekPair', 'combination amount_vector')
-WeekCombination = namedtuple('WeekCombination', 'indexes weekpair')
+
+
 
 
 def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7):
@@ -307,7 +307,7 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
             for i in range(1, len(arr)):
                 sm += samples[inds[i]]*arr[i]
             sm /= 7
-            res.append(WeekPair(combination = arr, amount_vector = sm))
+            res.append((arr, sm))
             if is_between(sm, glob_borders):
                 good = True
         
@@ -332,22 +332,22 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
             if flag:
                 print(smpl)
             
-            results.append(WeekCombination(indexes = inds, weekpair = smpl))
+            results.append((inds, smpl))
     
     # убираются дубликаты и генерируются ответы
     
     unique_results = []
     uniqs = []
     for p in results:
-        if p.indexes not in uniqs:
-            for pair in p.weekpair:
+        if p[0] not in uniqs:
+            for pair in p[1]:
             
-                score_ = score(pair.amount_vector)
-                lower = np.sum(pair.amount_vector < borders[2,:])
-                upper = np.sum(pair.amount_vector > borders[3,:])
+                score_ = score(pair[1])
+                lower = np.sum(pair[1] < borders[2,:])
+                upper = np.sum(pair[1] > borders[3,:])
                 
                 if lower <= lower_error and upper <= upper_error:
-                    unique_results.append(Weeks([candidates[k] for k in p.indexes], pair, score_, lower, upper))
+                    unique_results.append(Weeks([candidates[k] for k in p[0]], pair, score_, lower, upper))
                     uniqs.append(p[0])
     
     return unique_results
@@ -388,7 +388,7 @@ for i, c in enumerate(candidates):
 
 
 
-#weeks = get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, limit = 7)
+#weeks = get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7)
     
     
 # for i, week in enumerate(weeks):
