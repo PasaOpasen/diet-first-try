@@ -276,8 +276,16 @@ WeekPair = namedtuple('WeekPair', 'combination amount_vector')
 WeekCombination = namedtuple('WeekCombination', 'indexes weekpair')
 
 
-def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, limit = 7):
+def get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, valid_different_days = [1,2,3,4,5,6,7]):
 
+    different_days = [count for count in valid_different_days if count <= 7 and count <= len(candidates)]
+    
+    if len(different_days) == 0:
+        raise Exception(f'there are only {len(candidates)} different days what is less than each valid count in valid_different_days ({valid_different_days})')
+    
+    if len(different_days) < len(valid_different_days):
+        warnings.warn(f"WARNING.........from valid_different_days ({valid_different_days}) it uses only {different_days} because there are only {len(candidates)} different days")
+    
     
     samples = [res.combination for res in candidates]
     
@@ -287,9 +295,7 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
     
     score = lambda sample: MAPE(sample, avg)
     
-    weeks = get7sum(limit)
-    
-    up_lim = max(weeks.keys())
+    weeks = get7sum(7)
     
     def coef_sum(inds):
         """
@@ -314,20 +320,20 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
         return res, good
     
     
-    len_samples = len(samples)
     
+    len_samples = len(samples)
     
     comps = np.arange(len_samples)
         
     
-    # это кусок кода ищет для индексов от samples типа (1, 2, 3) разные комбинации этих рецептов по неделе типа [2, 4, 1], то есть два дня первый рецепт, и дня второй и один день третий
+    # это кусок кода ищет для индексов от samples типа (1, 2, 3) разные комбинации этих рецептов по неделе типа [2, 4, 1], то есть два дня первый рецепт, четыре дня второй и один день третий
     
-    choises_count = range(min(10, math.factorial(len_samples)))
+    choises_count = range(min(10, 2*math.factorial(len_samples)))
     
     results = []
-    for number in range(1,8): # how many different days by week
+    for number in different_days: # how many different days by week
         for _ in choises_count:
-            inds = list(np.random.choice(comps, min(number, len_samples), replace = False)) # столько-то индексов для массива samples
+            inds = list(np.random.choice(comps, number, replace = False)) # столько-то индексов для массива samples
             smpl, flag = coef_sum(inds)
             if flag:
                 print(smpl)
@@ -348,7 +354,7 @@ def get_optimal_weeks(candidates, borders, lower_error = 3, upper_error = 3, lim
                 
                 if lower <= lower_error and upper <= upper_error:
                     unique_results.append(Weeks([candidates[k] for k in p.indexes], pair, score_, lower, upper))
-                    uniqs.append(p[0])
+                    uniqs.append(p.indexes)
     
     return unique_results
 
@@ -388,7 +394,7 @@ for i, c in enumerate(candidates):
 
 
 
-#weeks = get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, limit = 7)
+weeks = get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, valid_different_days = [1,2,3,4,5,6,7])
     
     
 # for i, week in enumerate(weeks):
