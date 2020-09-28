@@ -71,7 +71,7 @@ def which_max(vals, classes, class_index):
     """
     mx = float('-inf')
     
-    result = (mx, -1)
+    #result = (mx, -1)
     #print(classes)
     #print(class_index)
     

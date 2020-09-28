@@ -62,22 +62,11 @@ class Day:
         алгоритм может не сойтись, поэтому для каждой новой попытки индексы (хотя бы некоторая их часть)
         должны принимать случайные значения
         """
-        
-        mt = indexes['meal_time']
-        f = mt['foods']
-        r = mt['recipes']
-        
         for _ in range(max_tryes):
-            recipes_time = np.random.choice([1,3,5], r.size, replace = True)
-            recipes_time[r > 0] = r[r > 0]
-            
-            foods_time = np.random.choice([1,3,5], f.size, replace = True)
-            foods_time[f > 0] = f[f > 0]
-            
             ans = splitDay(indexes['recipes_energy'], indexes['foods_enegry'], 
                            self.recipes_weights, self.food_weights, 
                            indexes['recipes_names'], indexes['foods_names'], 
-                           recipes_time, foods_time, sums = sums, random_labels = None)
+                           None, None, sums = sums)
             if ans != None:
                 self.splitted = ans
                 return

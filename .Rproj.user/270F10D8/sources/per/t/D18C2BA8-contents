@@ -4,7 +4,7 @@ library(tidyverse)
 
 VIEW = function(name){
   
-  data = read_csv(paste0('database/',name,'.csv'))
+  data = read_csv(paste0('database/28 09/',name,'.csv'))
   View(data)
 }
 
@@ -27,5 +27,5 @@ dfs = c(
 
 
 
-VIEW('food')
+VIEW('all_foods')
 

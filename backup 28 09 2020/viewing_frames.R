@@ -27,5 +27,5 @@ dfs = c(
 
 
 
-VIEW('all_foods')
+VIEW('food_tags')
 

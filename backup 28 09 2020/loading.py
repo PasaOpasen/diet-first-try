@@ -44,53 +44,27 @@ def get_data(file_name = 'norms.txt'):
 
     # просто считываю данные и удаляю лишние столбцы
     
-    #foods = pd.read_csv('food.csv', sep =';')
-    foods = pd.read_csv('all_foods.csv', sep =';', error_bad_lines=False).fillna(0)
-    foods_names = foods.food_id.astype(int).astype(str)
-    food_cat = foods['category_id'].values
-    food_general = foods['general'].values
+    foods = pd.read_csv('foods.csv')
+    foods_names = foods.food_id.astype(str)
     
     recipes = pd.read_csv('recipes.csv')
     recipes_names = recipes.id.astype(str) 
     
-
-    foods = foods.iloc[:,5:].dropna(axis=1, how='all').select_dtypes(include = np.number).drop('food_id', 1)#.fillna(0)
+    drinks = pd.read_csv('drinks.csv')
+    drinks_names = drinks.id.astype(str) 
+    
+    
+    foods = foods.iloc[:,1:].dropna(axis=1, how='all').select_dtypes(include = np.number).drop('food_id', 1).fillna(0)
     
     
     recipes = recipes.dropna(axis=1, how='all').select_dtypes(include = np.number).drop(['recipe_id','id','coef_for_men','coef_for_women'],1)
     
     
-    
-    is_drink = np.arange(foods.shape[0])[food_cat == 25]
-    #is_not_drink = np.arange(foods.shape[0])[food_cat != 25]
-    is_food = np.arange(foods.shape[0])[food_general == 1]
-
-    drinks = foods.iloc[is_drink,:]
-    drinks_names = foods_names[is_drink] 
-
-    foods = foods.iloc[is_food,:]
-    foods_names = foods_names[is_food]
-
-
     water = {
         'recipes': recipes['water'].values,
         'foods': foods['water'].values/2,
         'drinks': drinks['water'].values/2
         }
-
-
-
-
-    recipes_meal_time = np.zeros(recipes.shape[0])
-    foods_meal_time = np.zeros(foods.shape[0])
-    
-    meal_time = pd.read_csv('food_tags.csv', names = ['food_id', 'name', 'name_1']).drop('name', 1)
-    
-    for meal, time in [('завтрак',1), ('обед',3), ('ужин',5)]:
-        foods_meal_time[np.array([fid in meal_time[meal_time['name_1'] == meal]['food_id'] for fid in foods_names.astype(int)])] = time
-
-
-
     
     # отбираю только общие столбцы
     
@@ -117,6 +91,7 @@ def get_data(file_name = 'norms.txt'):
     # goal tabs
     
     goal = get_goal(file_name) #pd.read_csv('goal.csv')
+    
     
     
     
@@ -156,7 +131,7 @@ def get_data(file_name = 'norms.txt'):
     # если признак есть в коридоре, но не в цели, его отбрасываем
     # если есть в цели, но не в коридоре, добавляем в коридор с границами 1-10
     
-    borders = pd.read_csv('borders.csv').drop('omega_9', 1)
+    borders = pd.read_csv('borders.csv')
     
     tmp = goal_columns.intersection(borders.columns)
     borders = borders.loc[:,tmp]
@@ -169,10 +144,9 @@ def get_data(file_name = 'norms.txt'):
     goal = goal.loc[:,goal_columns]
     foods = foods.loc[:,goal_columns]
     recipes = recipes.loc[:,goal_columns]
-    drinks = drinks.loc[:,goal_columns]
+    
 
-
-
+    drinks = drinks.loc[:, goal_columns.intersection(drinks.columns)]
     
     
     #foods['name'] = foods_names
@@ -205,10 +179,6 @@ def get_data(file_name = 'norms.txt'):
         'drinks_columns': list(drinks.columns),
         'recipes_energy': recipes['energy'].values,
         'foods_enegry': foods['energy'].values/2,
-        'meal_time':{
-            'recipes': recipes_meal_time,
-            'foods': foods_meal_time
-            },
         'water': water
         }
     

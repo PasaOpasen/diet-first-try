@@ -194,8 +194,8 @@ def get_optimal_candidates(foods, recipes, borders, recipes_samples = 4, max_cou
 
 def get_drinks_ways(needed_water, day, drinks, borders, indexes, max_drinks_samples = 4, max_count = 3, count = 10, max_iterations = 100):
     
-    #current_border = currect_diff(borders, day.combination)[:2,:4] # only day borders and energy protein fat carb
-    current_border = currect_diff(borders, day.combination)[:2,:] # only day borders and energy protein fat carb
+    current_border = currect_diff(borders, day.combination)[:2,:4] # only day borders and energy protein fat carb
+    
     
     needed_water -= np.sum(indexes['water']['recipes'] * day.recipes_weights) + np.sum(indexes['water']['foods'] * day.food_weights)
     
@@ -213,9 +213,7 @@ def get_drinks_ways(needed_water, day, drinks, borders, indexes, max_drinks_samp
     inds = np.arange(drinks.shape[0])
     
     inds = inds[np.sum(drinks > current_border[1,:], axis = 1) == 0]
-    
-    max_drinks_samples = min(max_drinks_samples, inds.size)
-    
+
     result = {}
     
     
@@ -265,11 +263,7 @@ def get_drinks_ways(needed_water, day, drinks, borders, indexes, max_drinks_samp
         
         if k == count or it == max_iterations:
             break
-    
-    if len(result) == 0:
-        result['total'] = {
-            'additional_water': needed_water
-            }
+        
     
     return result
     
@@ -400,7 +394,7 @@ for i, c in enumerate(candidates):
 
 
 
-#weeks = get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, valid_different_days = [1,2,3,4,5,6,7])
+weeks = get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, valid_different_days = [1,2,3,4,5,6,7])
     
     
 # for i, week in enumerate(weeks):

@@ -112,14 +112,7 @@ def splitDay(recipes_energy, foods_energy, recipes_vals, foods_vals, recipes_nam
             mask = np.arange(total.shape[0])[(total['class'] == tag).values]
             tot2 = total.iloc[mask,:]
             for _ in range(max_tryes):
-                
-                rand_split = np.random.choice([tag, tag + 1], tot2.shape[0], True)
-                #print(rand_split)
-                #while np.unique(rand_split).size < 2:
-                #    print(rand_split)
-                #    rand_split = np.random.choice([tag, tag + 1], tot2.shape[0], True)
-                
-                ans, lst = get_split_by_sums(tot2['energy'].values, rand_split, np.array(s)/sum(s), tol)
+                ans, lst = get_split_by_sums(tot2['energy'].values, np.random.choice([tag, tag +1], tot2.shape[0], True), np.array(s)/sum(s), tol)
                 if lst:
                     break
             else:
