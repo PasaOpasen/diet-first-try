@@ -83,7 +83,7 @@ class Day:
                 return
         
     
-    def to_dictionary(self, indexes):
+    def to_dictionary(self, indexes, sums = [[15,10], 40, 35]):
         
         answer = {
             'recipes':[],
@@ -113,7 +113,7 @@ class Day:
         
         # если сплит не считался или не был найден, поискать
         if not bool(self.splitted):
-            self.set_splitter(indexes)
+            self.set_splitter(indexes, sums)
         
         answer['split'] = self.splitted
         
@@ -124,9 +124,9 @@ class Day:
         
         return answer
     
-    def to_json(self, file_name, indexes):
+    def to_json(self, file_name, indexes, sums = [[15,10], 40, 35]):
         
-        dictionary = self.to_dictionary(indexes)
+        dictionary = self.to_dictionary(indexes, sums)
         
         with open(file_name, "w") as write_file:
             json.dump(dictionary, write_file, indent = 4)
@@ -178,7 +178,7 @@ class Day:
             })
         
         
-        print(np.allclose(df['current result'].values, (df['by recipes'] + df['by foods']).values))
+        #print(np.allclose(df['current result'].values, (df['by recipes'] + df['by foods']).values))
         
         df['by foods'] = df['by recipes'] + df['by foods']
         

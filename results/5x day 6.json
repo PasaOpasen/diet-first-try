@@ -1,0 +1,188 @@
+{
+    "recipes": [
+        {
+            "index": "875",
+            "count": 1
+        },
+        {
+            "index": "3463",
+            "count": 1
+        },
+        {
+            "index": "26403",
+            "count": 1
+        },
+        {
+            "index": "5064",
+            "count": 1
+        },
+        {
+            "index": "23825",
+            "count": 1
+        },
+        {
+            "index": "22651",
+            "count": 1
+        },
+        {
+            "index": "19901",
+            "count": 1
+        },
+        {
+            "index": "7799",
+            "count": 1
+        },
+        {
+            "index": "23527",
+            "count": 1
+        },
+        {
+            "index": "7555",
+            "count": 1
+        }
+    ],
+    "foods": [
+        {
+            "index": "579",
+            "count": 0.5
+        },
+        {
+            "index": "1798",
+            "count": 2.5
+        },
+        {
+            "index": "2472",
+            "count": 1.0
+        },
+        {
+            "index": "4249",
+            "count": 0.5
+        },
+        {
+            "index": "4973",
+            "count": 1.5
+        },
+        {
+            "index": "4994",
+            "count": 1.0
+        },
+        {
+            "index": "5469",
+            "count": 1.0
+        },
+        {
+            "index": "5846",
+            "count": 4.0
+        },
+        {
+            "index": "5945",
+            "count": 1.0
+        },
+        {
+            "index": "6471",
+            "count": 3.0
+        }
+    ],
+    "combination": {
+        "energy": 3349.0,
+        "protein": 138.685,
+        "fat": 119.055,
+        "carbohydrate": 415.5799999999999,
+        "serine": 3.8839999999999995,
+        "omega_3": 5.367,
+        "omega_6": 7.061000000000001,
+        "potassium": 4502.84,
+        "calcium": 1319.2,
+        "magnesium": 568.5,
+        "sodium": 3486.38,
+        "phosphorus": 1939.52,
+        "iron": 27.71,
+        "manganese": 7.874,
+        "copper": 2359.84,
+        "selen": 158.04000000000002,
+        "zinc": 11.191,
+        "cobalt": 17.35,
+        "molybdenum": 74.44,
+        "chrome": 30.0,
+        "iodine": 471.23,
+        "vitamin_a": 2242.3,
+        "vitamin_b1": 1.661,
+        "vitamin_b2": 3.5985000000000005,
+        "vitamin_b5": 5.910500000000001,
+        "vitamin_b6": 4.2955,
+        "vitamin_b9": 483.61,
+        "vitamin_b12": 5.920000000000001,
+        "vitamin_c": 98.30000000000001,
+        "vitamin_k": 100.05000000000001,
+        "vitamin_e": 33.300000000000004,
+        "beta_carotene": 12.272
+    },
+    "lower_error": 2,
+    "water": {
+        "recipes": 514.57,
+        "foods": 1059.88
+    },
+    "split": {
+        "breakfast": {
+            "recipes": {
+                "875": 1.0,
+                "26403": 1.0,
+                "23825": 1.0,
+                "23527": 1.0
+            },
+            "foods": {
+                "579": 0.5,
+                "5945": 1.0
+            },
+            "percent_of_sum": 24.45476261570618
+        },
+        "snack_after_breakfast": {
+            "recipes": {
+                "22651": 1.0
+            },
+            "foods": {
+                "2472": 1.0
+            },
+            "percent_of_sum": 8.888922066288444
+        },
+        "lunch": {
+            "recipes": {
+                "3463": 1.0,
+                "19901": 1.0
+            },
+            "foods": {
+                "4973": 1.5,
+                "4994": 0.5,
+                "5846": 3.0
+            },
+            "percent_of_sum": 35.54255001492983
+        },
+        "snack_after_lunch": {
+            "recipes": {},
+            "foods": {
+                "4249": 0.5,
+                "4994": 0.5,
+                "5846": 1.0
+            },
+            "percent_of_sum": 9.346073454762616
+        },
+        "dinner": {
+            "recipes": {
+                "5064": 1.0,
+                "7799": 1.0,
+                "7555": 1.0
+            },
+            "foods": {
+                "1798": 2.5,
+                "5469": 1.0,
+                "6471": 3.0
+            },
+            "percent_of_sum": 21.76769184831293
+        }
+    },
+    "drinks": {
+        "total": {
+            "additional_water": 1425.5499999999997
+        }
+    }
+}

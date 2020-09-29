@@ -1,0 +1,176 @@
+{
+    "recipes": [
+        {
+            "index": "24299",
+            "count": 1
+        },
+        {
+            "index": "10408",
+            "count": 1
+        },
+        {
+            "index": "19847",
+            "count": 1
+        },
+        {
+            "index": "24827",
+            "count": 1
+        },
+        {
+            "index": "13308",
+            "count": 1
+        },
+        {
+            "index": "23156",
+            "count": 1
+        },
+        {
+            "index": "23665",
+            "count": 3
+        },
+        {
+            "index": "6526",
+            "count": 3
+        },
+        {
+            "index": "16477",
+            "count": 1
+        },
+        {
+            "index": "22828",
+            "count": 1
+        }
+    ],
+    "foods": [
+        {
+            "index": "319",
+            "count": 0.5
+        },
+        {
+            "index": "884",
+            "count": 0.5
+        },
+        {
+            "index": "1478",
+            "count": 1.5
+        },
+        {
+            "index": "1798",
+            "count": 0.5
+        },
+        {
+            "index": "4199",
+            "count": 0.5
+        },
+        {
+            "index": "4932",
+            "count": 0.5
+        },
+        {
+            "index": "4969",
+            "count": 1.5
+        },
+        {
+            "index": "5846",
+            "count": 4.0
+        },
+        {
+            "index": "5945",
+            "count": 2.0
+        }
+    ],
+    "combination": {
+        "energy": 3041.5299999999997,
+        "protein": 150.04000000000002,
+        "fat": 104.36000000000001,
+        "carbohydrate": 368.555,
+        "serine": 4.233,
+        "omega_3": 0.679,
+        "omega_6": 7.060999999999999,
+        "potassium": 4711.19,
+        "calcium": 1256.79,
+        "magnesium": 654.86,
+        "sodium": 5227.79,
+        "phosphorus": 2060.0699999999997,
+        "iron": 27.995,
+        "manganese": 5.532,
+        "copper": 2460.43,
+        "selen": 139.42000000000002,
+        "zinc": 10.836,
+        "cobalt": 11.96,
+        "molybdenum": 60.989999999999995,
+        "chrome": 21.119999999999997,
+        "iodine": 148.11,
+        "vitamin_a": 1893.5900000000001,
+        "vitamin_b1": 1.26,
+        "vitamin_b2": 2.745,
+        "vitamin_b5": 5.937,
+        "vitamin_b6": 2.901,
+        "vitamin_b9": 473.22,
+        "vitamin_b12": 5.82,
+        "vitamin_c": 286.88,
+        "vitamin_k": 254.48,
+        "vitamin_e": 24.800000000000004,
+        "beta_carotene": 11.03
+    },
+    "lower_error": 4,
+    "water": {
+        "recipes": 1101.94,
+        "foods": 690.545
+    },
+    "split": {
+        "breakfast": {
+            "recipes": {
+                "10408": 1.0
+            },
+            "foods": {
+                "319": 0.5,
+                "5945": 0.5
+            },
+            "percent_of_sum": 6.400397168530312
+        },
+        "snack_after_breakfast": {
+            "recipes": {
+                "24299": 1.0
+            },
+            "foods": {
+                "5945": 1.5
+            },
+            "percent_of_sum": 4.4467751427735385
+        },
+        "lunch": {
+            "recipes": {
+                "24827": 1.0,
+                "13308": 1.0
+            },
+            "foods": {
+                "884": 0.5,
+                "4199": 0.5,
+                "4932": 0.5,
+                "4969": 1.5
+            },
+            "percent_of_sum": 43.51888687601306
+        },
+        "dinner": {
+            "recipes": {
+                "19847": 1.0,
+                "23156": 1.0,
+                "23665": 3.0,
+                "6526": 3.0,
+                "16477": 1.0,
+                "22828": 1.0
+            },
+            "foods": {
+                "1478": 1.5,
+                "1798": 0.5,
+                "5846": 4.0
+            },
+            "percent_of_sum": 45.633940812683086
+        }
+    },
+    "drinks": {
+        "total": {
+            "additional_water": 1207.5149999999999
+        }
+    }
+}
