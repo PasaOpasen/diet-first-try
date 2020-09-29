@@ -447,7 +447,7 @@ WeekPair = namedtuple('WeekPair', 'combination amount_vector')
 WeekCombination = namedtuple('WeekCombination', 'indexes weekpair')
 
 
-def get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, valid_different_days = [1,2,3,4,5,6,7]):
+def get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, valid_different_days = [1,2,3,4,5,6,7], max_day_repeats = 7):
 
     different_days = [count for count in valid_different_days if count <= 7 and count <= len(candidates)]
     
@@ -466,7 +466,7 @@ def get_optimal_weeks(candidates, borders, lower_error = 4, upper_error = 4, val
     
     score = lambda sample: MAPE(sample, avg)
     
-    weeks = get7sum(7)
+    weeks = get7sum(7, max_day_repeats)
     
     def coef_sum(inds):
         """

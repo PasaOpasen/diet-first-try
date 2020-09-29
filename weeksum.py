@@ -6,7 +6,7 @@ Created on Wed Aug 26 13:18:21 2020
 """
 
 
-def get7sum(limit = 3):
+def get7sum(limit = 3, max_repeats = 7):
     """
     возвращает комбинации чисел от 1 до 7, которые в сумме дают 7
     
@@ -18,6 +18,8 @@ def get7sum(limit = 3):
     а значения -- это списки разных вариантов
     
     аргумент limit значит сколько максимально разных рецептов можно использовать
+    
+    max_repeats -- сколько максимально раз можно использовать 1 день
     """
     
     if limit > 7:
@@ -51,6 +53,10 @@ def get7sum(limit = 3):
         dic[len(a)].append(a)
     
     dic[1] = [[7]]
+    
+    
+    dic = {key: [l for l in val if max(l) <= max_repeats] for key, val in dic.items()}
+    
     
     return dic
 
