@@ -39,7 +39,7 @@ SUMS = {
 
 
 
-def get_optimal_days(patient = 'norms.txt', prefix ='',
+def get_optimal_days(patient = 'norms3.txt', prefix ='',
                      how_many_days = 6, max_tryes_for_days = 100,
                      recipes_samples = 10, max_recipes_count = 3, max_food_count = 15, food_tryes = 10, return_first_with_error = 3, max_error_count = 4, 
                      sums = [[15,10], 40, 35],

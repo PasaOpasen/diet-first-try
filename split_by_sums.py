@@ -141,7 +141,9 @@ def get_split_by_sums(vals, prefer_classes, sums, tol = 10, max_iter = 30):
         dic, flag = get_current_dic(vals, result_classes, sums, tol)
         procents = np.array(list(dic.values()))
         k += 1
-        print(dic)
+        
+        # показывать промежуточные результаты
+        # print(dic)
         
         if k == max_iter:
             return result_classes, []
