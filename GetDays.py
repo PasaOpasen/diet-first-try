@@ -44,7 +44,7 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
                      recipes_samples = 10, max_recipes_count = 3, max_food_count = 15, food_tryes = 10, return_first_with_error = 3, max_error_count = 4, 
                      sums = [[15,10], 40, 35],
                      needed_water = 3000, max_drinks_samples = 4, max_drinks_count = 3, drinks_samples_count = 10, max_iterations_for_drinks = 100,
-                     plot = True):
+                     save_to_json = True, plot = True):
     """
     Возращает оптимальные дни при нужных условиях
 
@@ -82,6 +82,8 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
         сколько конфигураций по напиткам нужно вернуть (сколько разных вариантов). The default is 10.
     max_iterations_for_drinks : int, optional
         число попыток для поиска указанного числа конфигураций. The default is 100.
+    save_to_json : bool, optional
+        сохранять ли полученные дни в json. The default is True.
     plot : bool, optional
         сохранять ли изображения. The default is True.
 
@@ -126,10 +128,10 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
     
     
     # getting split and save to json
-        
-    for i, day in enumerate(days):
-        
-        day.to_json(f'results/{prefix} day {i+1}.json', indexes, sums)
+    if save_to_json:
+        for i, day in enumerate(days):
+            
+            day.to_json(f'results/{prefix} day {i+1}.json', indexes, sums)
 
     
     if plot:
@@ -137,8 +139,8 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
             day.plot2(f'results/{prefix} day {i+1}.png', indexes, borders, foods, recipes)
             
     
-    return [day.to_dictionary(indexes, sums) for day in days]
-    
+    #return [day.to_dictionary(indexes, sums) for day in days]
+    return {f'{prefix}_day_{i+1}': day.to_dictionary(indexes, sums, rewrite = False) for i, day in enumerate(days)}, days
 
 
 
@@ -146,11 +148,12 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
 
 if __name__ == '__main__':
 
-    days = get_optimal_days(prefix = 'default')
+    answer, days = get_optimal_days(prefix = 'default', save_to_json = False)
     
+    answers = {}
     for time, val in SUMS.items():
         
-        days = get_optimal_days(sums = val, prefix = time)
+        answers[time], days = get_optimal_days(sums = val, prefix = time)
 
 
 

@@ -36,6 +36,7 @@ class Day:
         self.less_than_down = less_than_down
         self.splitted = {}
         self.drinks = None
+        self.answer = None
         
         
     def show_info(self):
@@ -83,7 +84,11 @@ class Day:
                 return
         
     
-    def to_dictionary(self, indexes, sums = [[15,10], 40, 35]):
+    def to_dictionary(self, indexes, sums = [[15,10], 40, 35], rewrite = True):
+        
+        if self.answer != None and not rewrite:
+            return self.answer
+        
         
         answer = {
             'recipes':[],
@@ -121,12 +126,12 @@ class Day:
         if self.drinks != None:
             answer['drinks'] = self.drinks
         
-        
+        self.answer = answer
         return answer
     
-    def to_json(self, file_name, indexes, sums = [[15,10], 40, 35]):
+    def to_json(self, file_name, indexes, sums = [[15,10], 40, 35], rewrite_dictionary = False):
         
-        dictionary = self.to_dictionary(indexes, sums)
+        dictionary = self.to_dictionary(indexes, sums, rewrite_dictionary)
         
         with open(file_name, "w") as write_file:
             json.dump(dictionary, write_file, indent = 4)
