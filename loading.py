@@ -5,6 +5,7 @@ Created on Wed Sep 16 12:28:36 2020
 @author: qtckp
 """
 
+import os
 import json
 import codecs
 import warnings
@@ -14,11 +15,36 @@ import pandas as pd
 
 
 
-def get_goal(file_name = 'norms.txt'):
+def get_goal(goal_as_str = 'norms.txt'):
+    """
+    возвращает цель в виде DataFrame
 
-    with codecs.open(file_name, 'r', encoding = 'utf-8-sig') as f:
-        voc = json.load(f)
+    Parameters
+    ----------
+    goal_as_str : TYPE, optional
+        название файла с нормами или строка с содержанием json. The default is 'norms.txt'.
+
+    Raises
+    ------
+    Exception
+        если аргумент не является названием существующего файла и не декодируется из json, возникает исключение.
+
+    Returns
+    -------
+    df : pandas DataFrame
+        строка цели в виде DataFrame.
+
+    """
     
+    if os.path.isfile(goal_as_str):
+        with codecs.open(goal_as_str, 'r', encoding = 'utf-8-sig') as f:
+            voc = json.load(f)
+            
+    else:
+        try:
+            voc = json.loads(goal_as_str)
+        except:
+            raise Exception(f'текст "{goal_as_str}" в аргументе нормы не является ни именем существующего файлы, не строкой со словарём json')
     
     voc = voc['data']['user']['meta']['patient']['meta']['norms']
     
@@ -42,7 +68,7 @@ def get_goal(file_name = 'norms.txt'):
 
 
 
-def get_data(file_name = 'norms.txt'):
+def get_data(goal_as_str = 'norms.txt'):
 
     # просто считываю данные и удаляю лишние столбцы
     
@@ -118,7 +144,7 @@ def get_data(file_name = 'norms.txt'):
     
     # goal tabs
     
-    goal = get_goal(file_name) #pd.read_csv('goal.csv')
+    goal = get_goal(goal_as_str) #pd.read_csv('goal.csv')
     
     
    # goal = goal.loc[:, (goal != 0).any(axis=0)] # delete columns with all 0

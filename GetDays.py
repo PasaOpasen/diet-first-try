@@ -39,19 +39,20 @@ SUMS = {
 
 
 
-def get_optimal_days(patient = 'norms3.txt', prefix ='',
+def get_optimal_days(patient = 'norms.txt', prefix ='',
                      how_many_days = 6, max_tryes_for_days = 100,
                      recipes_samples = 10, max_recipes_count = 3, max_food_count = 15, food_tryes = 10, return_first_with_error = 3, max_error_count = 4, 
                      sums = [[15,10], 40, 35],
                      needed_water = 3000, max_drinks_samples = 4, max_drinks_count = 3, drinks_samples_count = 10, max_iterations_for_drinks = 100,
-                     save_to_json = True, plot = True):
+                     save_to_json = True, plot = True,
+                     return_as_json = False):
     """
     Возращает оптимальные дни при нужных условиях
 
     Parameters
     ----------
     patient : строка, optional
-        файл с нормами. The default is 'norms.txt'.
+        название файла с нормами или его содержание как json. The default is 'norms.txt'.
     prefix : строка, optional
         префикс, который будет добавлен в названия файлов. The default is ''.
     how_many_days : int, optional
@@ -83,19 +84,20 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
     max_iterations_for_drinks : int, optional
         число попыток для поиска указанного числа конфигураций. The default is 100.
     save_to_json : bool, optional
-        сохранять ли полученные дни в json. The default is True.
+        сохранять ли полученные дни в json (если True, каждый день в отдельности будет сохранён). The default is True.
     plot : bool, optional
         сохранять ли изображения. The default is True.
+    return_as_json : bool, optional
+        возвращать ли полученный словарь как строку json (иначе словарь python). The default is False.
 
     Raises
     ------
     Exception
-        DESCRIPTION.
+        выдает сообщение, если не получилось найти хотя бы 1 день.
 
     Returns
     -------
-    list
-        список из словарей (каждый словарь это день).
+    словарь как json или python (зависит от return_as_json), полученные дни как список экземпляров класса Day
 
     """
     
@@ -140,7 +142,9 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
             
     
     #return [day.to_dictionary(indexes, sums) for day in days]
-    return {f'{prefix}_day_{i+1}': day.to_dictionary(indexes, sums, rewrite = False) for i, day in enumerate(days)}, days
+            
+    result_as_dictionary = {f'{prefix}_day_{i+1}': day.to_dictionary(indexes, sums, rewrite = False) for i, day in enumerate(days)}
+    return json.dumps(result_as_dictionary, indent = 4) if return_as_json else result_as_dictionary, days
 
 
 
@@ -148,7 +152,7 @@ def get_optimal_days(patient = 'norms3.txt', prefix ='',
 
 if __name__ == '__main__':
 
-    answer, days = get_optimal_days(prefix = 'default', save_to_json = False)
+    answer, days = get_optimal_days(prefix = 'default', save_to_json = False, return_as_json = True)
     
     answers = {}
     for time, val in SUMS.items():
