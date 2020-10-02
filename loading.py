@@ -114,8 +114,10 @@ def get_data(goal_as_str = 'norms.txt'):
     
     meal_time = pd.read_csv('food_tags.csv', names = ['food_id', 'name', 'name_1']).drop('name', 1)
     
+    food_names_int = foods_names.astype(int)
     for meal, time in [('завтрак',1), ('обед',3), ('ужин',5)]:
-        foods_meal_time[np.array([fid in meal_time[meal_time['name_1'] == meal]['food_id'] for fid in foods_names.astype(int)])] = time
+        food_set = set(meal_time[meal_time['name_1'] == meal]['food_id'].values) # speed up over 5-6 times!
+        foods_meal_time[np.array([fid in food_set for fid in food_names_int])] = time
 
 
 
