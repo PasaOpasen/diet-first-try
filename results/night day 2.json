@@ -1,179 +1,179 @@
 {
     "recipes": [
         {
-            "index": "4944",
+            "index": "22889",
             "count": 1
         },
         {
-            "index": "12666",
-            "count": 3
-        },
-        {
-            "index": "23947",
-            "count": 1
-        },
-        {
-            "index": "7341",
-            "count": 3
-        },
-        {
-            "index": "652",
-            "count": 3
-        },
-        {
-            "index": "25811",
+            "index": "5078",
             "count": 2
         },
         {
-            "index": "6867",
-            "count": 3
+            "index": "25151",
+            "count": 2
         },
         {
-            "index": "25544",
+            "index": "27028",
+            "count": 2
+        },
+        {
+            "index": "26368",
             "count": 1
         },
         {
-            "index": "6963",
+            "index": "2181",
+            "count": 2
+        },
+        {
+            "index": "21228",
+            "count": 1
+        },
+        {
+            "index": "9414",
             "count": 3
         },
         {
-            "index": "21013",
-            "count": 3
+            "index": "21066",
+            "count": 1
+        },
+        {
+            "index": "8712",
+            "count": 2
         }
     ],
     "foods": [
         {
-            "index": "828",
-            "count": 7.5
+            "index": "617",
+            "count": 0.5
         },
         {
             "index": "1798",
-            "count": 3.0
+            "count": 1.0
+        },
+        {
+            "index": "2739",
+            "count": 5.5
         },
         {
             "index": "2951",
+            "count": 1.5
+        },
+        {
+            "index": "5687",
+            "count": 1.5
+        },
+        {
+            "index": "6853",
             "count": 0.5
         },
         {
-            "index": "4698",
-            "count": 3.0
-        },
-        {
-            "index": "4969",
-            "count": 3.5
-        },
-        {
-            "index": "5548",
-            "count": 0.5
-        },
-        {
-            "index": "6093",
-            "count": 7.5
-        },
-        {
-            "index": "6097",
-            "count": 0.5
+            "index": "6896",
+            "count": 4.5
         }
     ],
     "combination": {
-        "energy": 3255.83,
-        "protein": 112.84,
-        "fat": 114.92,
-        "carbohydrate": 422.605,
-        "serine": 4.2219999999999995,
-        "omega_3": 1.602,
-        "omega_6": 23.450999999999997,
-        "potassium": 6208.17,
-        "calcium": 1115.84,
-        "magnesium": 704.67,
-        "sodium": 3779.5499999999997,
-        "phosphorus": 2041.4325000000001,
-        "iron": 22.389,
-        "manganese": 6.594500000000001,
-        "copper": 3430.58,
-        "selen": 112.50000000000001,
-        "zinc": 11.939999999999998,
-        "cobalt": 27.84,
-        "molybdenum": 39.95,
-        "iodine": 503.79,
-        "vitamin_a": 1099.72,
-        "vitamin_b1": 1.445,
-        "vitamin_b2": 2.9499999999999997,
-        "vitamin_b5": 8.15,
-        "vitamin_b6": 2.4199999999999995,
-        "vitamin_b9": 401.89,
-        "vitamin_b12": 6.0,
-        "vitamin_c": 209.14,
-        "vitamin_k": 311.2,
-        "vitamin_e": 49.17999999999999,
-        "beta_carotene": 7.904999999999999
+        "energy": 3172.06,
+        "protein": 140.79500000000002,
+        "fat": 99.95,
+        "carbohydrate": 420.89500000000004,
+        "serine": 4.4094999999999995,
+        "omega_3": 3.8664999999999994,
+        "omega_6": 5.8755,
+        "potassium": 5134.84,
+        "calcium": 1577.1399999999999,
+        "magnesium": 502.7,
+        "sodium": 5243.240000000001,
+        "phosphorus": 2799.04,
+        "iron": 21.61,
+        "manganese": 6.067,
+        "copper": 3156.48,
+        "selen": 187.59,
+        "zinc": 17.335,
+        "cobalt": 31.020000000000003,
+        "molybdenum": 93.93,
+        "iodine": 176.28,
+        "vitamin_a": 1236.77,
+        "vitamin_b1": 2.4405,
+        "vitamin_b2": 2.353,
+        "vitamin_b5": 5.6345,
+        "vitamin_b6": 4.5405,
+        "vitamin_b9": 769.5,
+        "vitamin_b12": 2.415,
+        "vitamin_c": 314.92,
+        "vitamin_k": 145.48,
+        "vitamin_e": 14.649999999999999,
+        "beta_carotene": 5.085
     },
     "lower_error": 4,
     "water": {
-        "recipes": 1028.57,
-        "foods": 2136.1549999999997
+        "recipes": 1121.32,
+        "foods": 984.3749999999999
     },
     "split": {
         "breakfast": {
             "recipes": {
-                "12666": 1.0,
-                "7341": 1.0,
-                "25811": 2.0,
-                "6867": 2.0
-            },
-            "foods": {
-                "828": 3.0
-            },
-            "percent_of_sum": 11.412758037121105
-        },
-        "snack_after_breakfast": {
-            "recipes": {
-                "12666": 1.0,
-                "23947": 1.0,
-                "7341": 2.0,
-                "6867": 1.0
-            },
-            "foods": {
-                "828": 4.5,
-                "6097": 0.5
-            },
-            "percent_of_sum": 15.31713879410166
-        },
-        "lunch": {
-            "recipes": {
-                "4944": 1.0,
-                "12666": 1.0,
-                "25544": 1.0,
-                "21013": 3.0
-            },
-            "foods": {
-                "2951": 0.5,
-                "4698": 3.0,
-                "6093": 7.5
-            },
-            "percent_of_sum": 25.191118700914974
-        },
-        "dinner": {
-            "recipes": {
-                "6963": 1.0
-            },
-            "foods": {
-                "1798": 2.0,
-                "4969": 2.5
-            },
-            "percent_of_sum": 31.19911051866959
-        },
-        "snack_after_dinner": {
-            "recipes": {
-                "652": 3.0,
-                "6963": 2.0
+                "5078": 1.0,
+                "25151": 1.0,
+                "21066": 1.0,
+                "8712": 1.0
             },
             "foods": {
                 "1798": 1.0,
-                "4969": 1.0,
-                "5548": 0.5
+                "5687": 0.5
             },
-            "percent_of_sum": 16.879873949192678
+            "percent_of_sum": 10.145142273475278
+        },
+        "snack_after_breakfast": {
+            "recipes": {
+                "5078": 1.0,
+                "25151": 1.0,
+                "9414": 3.0,
+                "8712": 1.0
+            },
+            "foods": {
+                "6896": 0.5
+            },
+            "percent_of_sum": 17.092993196849996
+        },
+        "lunch": {
+            "recipes": {
+                "22889": 1.0,
+                "2181": 2.0
+            },
+            "foods": {
+                "2739": 5.5,
+                "2951": 1.5,
+                "5687": 1.0
+            },
+            "percent_of_sum": 24.022244219844513
+        },
+        "dinner": {
+            "recipes": {
+                "27028": 1.0,
+                "21228": 1.0
+            },
+            "foods": {
+                "6896": 3.0
+            },
+            "percent_of_sum": 33.81367313354728
+        },
+        "snack_after_dinner": {
+            "recipes": {
+                "27028": 1.0,
+                "26368": 1.0
+            },
+            "foods": {
+                "617": 0.5,
+                "6853": 0.5,
+                "6896": 1.0
+            },
+            "percent_of_sum": 14.925947176282918
         }
-    }
+    },
+    "drinks": {
+        "total": {
+            "additional_water": 894.3050000000003
+        }
+    },
+    "coefficient": -2.4089336656400793
 }
