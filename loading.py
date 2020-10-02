@@ -177,6 +177,14 @@ def get_data(goal_as_str = 'norms.txt'):
     goal_columns = goal.columns
     
     
+    coefs = {
+        'recipes': get_coefs_depended_on_goal(recipes, goal),
+        'foods': get_coefs_depended_on_goal(foods/2, goal),
+        'drinks': get_coefs_depended_on_goal(drinks/2, goal)
+        }
+    
+    
+    
     #foods = foods.loc[:,goal_columns]
     
     #recipes = recipes.loc[:,goal_columns]
@@ -252,7 +260,8 @@ def get_data(goal_as_str = 'norms.txt'):
             'recipes': recipes_meal_time,
             'foods': foods_meal_time
             },
-        'water': water
+        'water': water,
+        'coefficients': coefs
         }
     
     return foods.to_numpy()/2, recipes.iloc[:,:-1].to_numpy(), borders.to_numpy(), drinks.to_numpy()/2, indexes

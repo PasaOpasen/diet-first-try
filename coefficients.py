@@ -42,21 +42,21 @@ def get_coefs_by_nutrient(values, nutrient_name):
     #answer = np.zeros(values.size)
     
     if 1 in groups:
-        answer = np.min(3*values, 300)
+        answer = np.minimum(3*values, 300)
     elif 2 in groups:
-        answer = np.min(2*values, 200)
+        answer = np.minimum(2*values, 200)
     elif 3 in groups:
         
         answer = np.empty(values.size)
         
         answer[values <= 25] = 100
         
-        mask = values > 25 & values <= 92
+        mask = (values > 25) & (values <= 92)
         answer[mask] = 100 - 1.5 * (values[mask]-25)
         
-        answer[values > 92 & values <= 100] = 0
+        answer[(values > 92) & (values <= 100)] = 0
         
-        mask = values > 100 & values <= 150
+        mask = (values > 100) & (values <= 150)
         answer[mask] = -10 * (values[mask] - 100)
         
         mask = values > 150
@@ -75,8 +75,8 @@ def get_coefs_by_nutrient(values, nutrient_name):
 
 
 def get_coefs_for_dataframe(df):
-    
-    lst = [get_coefs_by_nutrient(df['col'].values, 'col') for col in df.columns]
+
+    lst = [get_coefs_by_nutrient(df[col].values, col) for col in df.columns]
     
     return np.sum(np.array(lst), axis = 0)/100
 
@@ -97,7 +97,15 @@ def get_coefs_depended_on_goal(df, goal):
     df2 = df.loc[:, cols]
     goal2 = goal.loc[:,cols]
     
-    return get_coefs_for_dataframe(df2/goal2 * 100)
+    
+    
+    result = df2.iloc[0,:] / goal2
+    
+    for i in range(1, df2.shape[0]):
+        result = result.append(df2.iloc[i,:] / goal2)
+      
+
+    return get_coefs_for_dataframe(result * 100)
         
 
 
