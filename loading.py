@@ -14,6 +14,8 @@ import numpy as np
 import pandas as pd
 
 
+from coefficients import get_coefs_depended_on_goal
+
 
 def get_goal(goal_as_str = 'norms.txt'):
     """

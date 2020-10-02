@@ -541,7 +541,7 @@ if __name__ == '__main__':
     
     
     
-    foods, recipes, borders, drinks, indexes = get_data('norms3.txt')
+    foods, recipes, borders, drinks, indexes = get_data('norms.txt')
     
     
     

@@ -37,8 +37,9 @@ mat[,'omega_3'] = c(0.8, 10, 0.95, 3)
   
 
 # тут описание расплывчатое, надо добавить еще углеводов и жиров
-mat[, c('cholesterol','fructose','galactose','glucose','saccharose')] = c(0, 1.2,0,1.5)
-  
+#mat[, c('cholesterol','sugars','sfa','purines','oxalic')] = c(0, 1.2,0,5)
+
+mat[, c('cholesterol','fructose','galactose','glucose','saccharose')] = c(0, 1.2,0,1.5) 
 
   
 
