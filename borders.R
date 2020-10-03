@@ -9,6 +9,10 @@ colnames(mat) = right_columns
 
 mat = as_tibble(mat)
 
+
+infty = 10
+zero = 0.00001
+
 # a
 mat[,c('energy', 'fat', 'protein', 'carbohydrate')] = c(0.93, 1.07, 0.97, 1.03)
 
@@ -19,7 +23,7 @@ mat[,c('beta_carotene',
        'vitamin_e','vitamin_pp','vitamin_k','vitamin_h','chlorine','magnesium',
        'sodium','phosphorus','iron','iodine','manganese',
        'copper', 'molybdenum','cobalt', 
-       'selen','serine', 'chrome','zinc')] = c(0.8, 3.5, 0.95, 3.5)
+       'selen','sulfur', 'chrome','zinc')] = c(0.8, 3.5, 0.95, 3.5)
 
 
 # c
@@ -31,15 +35,15 @@ mat[,c('vitamin_a','vitamin_b12','calcium','chlorine','potassium')] = c(0.8, 2.5
 
   
 mat[, c('omega_6','omega_9')] = c(0.8, 1.8, 0.95, 1.1)
-mat[,'omega_3'] = c(0.8, 10, 0.95, 3)
+mat[,'omega_3'] = c(0.8, infty, 0.95, 3)
 
 # Соотношение омега-3/омега-6 от 2/1 до 1/10
   
 
 # тут описание расплывчатое, надо добавить еще углеводов и жиров
-#mat[, c('cholesterol','sugars','sfa','purines','oxalic')] = c(0, 1.2,0,5)
+mat[, c('cholesterol','sugars','sfa','purines','oxalic')] = c(zero, 1.2, zero, 2) 
 
-mat[, c('cholesterol','fructose','galactose','glucose','saccharose')] = c(0, 1.2,0,1.5) 
+#mat[, c('cholesterol','fructose','galactose','glucose','saccharose')] = c(zero, 1.2, zero, 2) 
 
   
 
